@@ -18,13 +18,14 @@ public class PlayerInteraction : MonoBehaviour {
         if (Physics.Raycast(cam.position, cam.forward, out hit)){ //Raycast forward
             if (hit.transform.gameObject.GetComponent<Interact>())                              //If we hit an object with the "interact" component on it
             {
-                target = hit.transform.gameObject.GetComponent<Interact>();                     //Set that as out target
+                target = hit.transform.gameObject.GetComponent<Interact>();                       //Set that as out target
+          
             }
             else {
                 target = null;
             }
         }
-        if (target != null && !target.interacted) {                                             //If we have a target
+        if (target != null && !target.interacted) {                                          //If we have a target
             if (Input.GetButtonDown("Interact")) {                                              //And we press the interact button
                 target.On_Interact();                                                           //Interact with it
             }
