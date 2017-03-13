@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Midgaard
 {
-    public class NPC : MonoBehaviour
+    public class NPC : Interact
     {
 
         [System.Serializable]
