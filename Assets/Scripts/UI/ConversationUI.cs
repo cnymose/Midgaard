@@ -24,7 +24,7 @@ namespace Midgaard
 
         void Update()
         {
-            for (int i = 0; i < choices.Length; i++) {
+            for (int i = 0; i < choices.Length; i++) {   //Loop sets the colors of our texts
                 if (i == choicePointer)
                 {
                     choices[i].color = highlightedColor;
@@ -34,7 +34,7 @@ namespace Midgaard
                 }
             }
         }
-        public void Cleanup() {
+        public void Cleanup() { //Cleans up the conversation choices
             choicePointer = 0;
             inputHandler.conversationChoice = false;
             for (int i = 0; i < choices.Length; i++) {
@@ -43,7 +43,7 @@ namespace Midgaard
             }
         }
 
-        public void SetChoices(string[] choiceStrings) {
+        public void SetChoices(string[] choiceStrings) { //Sets the choice text-fields' texts
             inputHandler.conversationChoice = true;
             for (int i = 0; i < choices.Length; i++)
             {

@@ -56,30 +56,31 @@ namespace Midgaard
 
                 if (conversation[index].hasChoices) //If we have choices in this segment
                 {
-                    ui.SetChoices(conversation[index].choices);
+                    ui.SetChoices(conversation[index].choices); //Set the UI conversation choice texts
                    
                 }
 
                 yield return new WaitForEndOfFrame(); //We need this or else the interact button is still pressed in the same frame as the conversation starts
                 yield return StartCoroutine(InputHandler.WaitForButtonDown("Interact")); //And wait for the user to press continue
-                if (conversation[index].endsConversation)
+
+                if (conversation[index].endsConversation) //End the conversation if this segment is supposed to end it.
                 {
-                    conversationRunning = false;
+                    conversationRunning = false; 
                 }
 
                 else {
                     if (conversation[index].hasChoices)
                     {
-                        index = conversation[index].choicePointer[ui.choicePointer];
+                        index = conversation[index].choicePointer[ui.choicePointer]; //If we made a conversation choice, go to the index that the chosen choice leads to
                     }
                     else {
-                        index = conversation[index].nextConversationIndex;
+                        index = conversation[index].nextConversationIndex; //Else just go on to the index that is supposed to come after this one.
                     }
                 }
-                ui.Cleanup();
+                ui.Cleanup(); //Cleanup UI
             }
             ui.gameObject.SetActive(false); //When done disable the UI
-            On_Interact_Finished();
+            On_Interact_Finished(); //And be done interacting
             yield break;
 
         }

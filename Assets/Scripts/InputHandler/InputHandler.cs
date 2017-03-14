@@ -14,7 +14,7 @@ namespace Midgaard
         }
 
         void Update() {
-            if (conversationChoice) {
+            if (conversationChoice) { //If we are in conversation choice mode (This will be rewritten to state later)
                 if (Input.GetKeyDown(KeyCode.W)) {
                     if (conversationUI.choicePointer > 0)
                     conversationUI.choicePointer--;
