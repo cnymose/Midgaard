@@ -12,6 +12,8 @@ namespace Midgaard
 
         public UnityEvent method;
         public bool interacted = false;
+        public delegate void On_Interacted(float time, Interact interact);
+        public event On_Interacted onInteracted;
 
         // Use this for initialization
         void Start()
@@ -36,6 +38,7 @@ namespace Midgaard
         {
             interacted = false;
             FindObjectOfType<PlayerMovement>().canMove = true;
+            onInteracted(Time.time, this);
         }
     }
 }
