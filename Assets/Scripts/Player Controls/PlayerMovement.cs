@@ -53,6 +53,8 @@ public class PlayerMovement : MonoBehaviour
     private bool playerControl = false;
     public int jumpTimer;
     public bool canMove = true;
+    public enum MovementState { Idle = 0, Moving = 1, Running = 2, Jumping = 3, Landing = 4};
+    public MovementState movementState;
 
     void Start()
     {
@@ -102,7 +104,10 @@ public class PlayerMovement : MonoBehaviour
 
                 // If running isn't on a toggle, then use the appropriate speed depending on whether the run button is down
                 if (!toggleRun)
+                {
                     speed = Input.GetButton("Run") ? runSpeed : walkSpeed;
+                    movementState = Input.GetButton("Run") ? MovementState.Running : MovementState.Moving;
+                }
 
                 // If sliding (and it's allowed), or if we're on an object tagged "Slide", get a vector pointing down the slope we're on
                 if ((sliding && slideWhenOverSlopeLimit) || (slideOnTaggedObjects && hit.collider.tag == "Slide"))
@@ -120,12 +125,17 @@ public class PlayerMovement : MonoBehaviour
                     moveDirection = myTransform.TransformDirection(moveDirection) * speed;
                     playerControl = true;
                 }
+                if (!(new Vector2(moveDirection.x, moveDirection.z).magnitude > 0))
+                {
 
+                    movementState = MovementState.Idle;
+                }
                 // Jump! But only if the jump button has been released and player has been grounded for a given number of frames
                 if (!Input.GetButton("Jump"))
                     jumpTimer++;
                 else if (jumpTimer >= antiBunnyHopFactor)
                 {
+                    movementState = MovementState.Jumping;
                     moveDirection.y = jumpSpeed;
                     jumpTimer = 0;
                 }
@@ -157,6 +167,7 @@ public class PlayerMovement : MonoBehaviour
 
         // Move the controller, and set grounded true or false depending on whether we're standing on something
         grounded = (controller.Move(moveDirection * Time.deltaTime) & CollisionFlags.Below) != 0;
+    
     }
 
     void Update()
@@ -164,13 +175,20 @@ public class PlayerMovement : MonoBehaviour
         // If the run button is set to toggle, then switch between walk/run speed. (We use Update for this...
         // FixedUpdate is a poor place to use GetButtonDown, since it doesn't necessarily run every frame and can miss the event)
         if (toggleRun && grounded && Input.GetButtonDown("Run"))
+        {
             speed = (speed == walkSpeed ? runSpeed : walkSpeed);
+          
+        }
     }
 
     // Store point that we're in contact with for use in FixedUpdate if needed
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
+
         contactPoint = hit.point;
+        if (!grounded) {
+            movementState = MovementState.Landing;
+        }
     }
 
     // If falling damage occured, this is the place to do something about it. You can make the player
