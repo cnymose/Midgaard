@@ -39,8 +39,8 @@ public class PlayerMovement : MonoBehaviour
     // Player must be grounded for at least this many physics frames before being able to jump again; set to 0 to allow bunny hopping
     public int antiBunnyHopFactor = 1;
 
-    private Vector3 moveDirection = Vector3.zero;
-    private bool grounded = false;
+    public Vector3 moveDirection = Vector3.zero;
+    public bool grounded = false;
     private CharacterController controller;
     private Transform myTransform;
     private float speed;
@@ -51,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
     private float rayDistance;
     private Vector3 contactPoint;
     private bool playerControl = false;
-    private int jumpTimer;
+    public int jumpTimer;
     public bool canMove = true;
 
     void Start()
