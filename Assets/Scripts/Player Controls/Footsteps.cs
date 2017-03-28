@@ -10,7 +10,7 @@ public class Footsteps : MonoBehaviour
     public AudioClip groundJump;
     public AudioClip groundLand;
     private bool jump = false;
-    
+    private bool land = false;
     float audioStepLength = 0.10f;
     private PlayerMovement pM;
     private AudioSource source;
@@ -82,6 +82,7 @@ public class Footsteps : MonoBehaviour
     {
         if (!jump)
         {
+            land = false;
             jump = true;
             source.clip = groundJump;
             source.pitch = Random.Range(.075f, 1.10f);
@@ -93,12 +94,16 @@ public class Footsteps : MonoBehaviour
 
     private void LandOnGround()
     {
-        jump = false;
-       
+        if (!land)
+        {
+            land = true;
+            jump = false;
+
             source.clip = groundLand;
             source.pitch = Random.Range(0.75f, 1.10f);
             source.volume = 0.80f;
             source.PlayOneShot(groundLand);
+        }
         
 
     }
