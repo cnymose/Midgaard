@@ -186,7 +186,7 @@ public class PlayerMovement : MonoBehaviour
     {
 
         contactPoint = hit.point;
-        if (!grounded) {
+        if (!grounded && movementState == MovementState.Jumping) {
             movementState = MovementState.Landing;
         }
     }

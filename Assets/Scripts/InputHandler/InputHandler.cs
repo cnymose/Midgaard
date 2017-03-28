@@ -8,9 +8,11 @@ namespace Midgaard
     {
         public bool conversationChoice = false;
         public ConversationUI conversationUI;
+        private PlayerMovement playerMovement;
+
 
         void Start() {
-
+            playerMovement = FindObjectOfType<PlayerMovement>();
         }
 
         void Update() {
@@ -25,6 +27,10 @@ namespace Midgaard
                     conversationUI.choicePointer++;
                 }
             }
+        }
+
+        public void SetMovementLocked(bool locked) {
+            playerMovement.canMove = !locked;
         }
 
         public static IEnumerator WaitForButtonDown(string button)

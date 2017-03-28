@@ -22,20 +22,10 @@ namespace Midgaard
             public ConversationSegment[] conversation;             
         }
 
+        [HideInInspector] //Hide the settings from the NPC itself so that we don't accidentally not use a proxy
         public NPCSettings settings; //Create an instance of our settings
         ConversationUI ui; //Reference to the UI
         
-
-        void Start()
-        {
-
-        }
-
-    
-        void Update()
-        {
-
-        }
 
         public void Start_Conversation()
         {

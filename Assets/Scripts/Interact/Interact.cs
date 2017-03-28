@@ -14,11 +14,12 @@ namespace Midgaard
         public bool interacted = false;
         public delegate void On_Interacted(float time, Interact interact);
         public event On_Interacted onInteracted;
+        private InputHandler inputHandler;
 
         // Use this for initialization
-        void Start()
+        public virtual void Start()
         {
-
+            inputHandler = FindObjectOfType<InputHandler>();
         }
 
         // Update is called once per frame
@@ -29,7 +30,7 @@ namespace Midgaard
 
         public void On_Interact()
         {             //When this method is called from outside this script
-            FindObjectOfType<PlayerMovement>().canMove = false;
+            inputHandler.SetMovementLocked(true);
             interacted = true;
             method.Invoke();                    //Call the method that we select in the inspector for this given object
         }
@@ -37,7 +38,7 @@ namespace Midgaard
         public void On_Interact_Finished()
         {
             interacted = false;
-            FindObjectOfType<PlayerMovement>().canMove = true;
+            inputHandler.SetMovementLocked(false);
             onInteracted(Time.time, this);
         }
     }
