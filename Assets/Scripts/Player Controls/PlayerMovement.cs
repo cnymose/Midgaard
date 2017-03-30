@@ -55,6 +55,8 @@ public class PlayerMovement : MonoBehaviour
     public bool canMove = true;
     public enum MovementState { Idle = 0, Moving = 1, Running = 2, Jumping = 3, Landing = 4};
     public MovementState movementState;
+    
+    public TerrainPiece currentTerrain;
 
     void Start()
     {
@@ -188,6 +190,9 @@ public class PlayerMovement : MonoBehaviour
         contactPoint = hit.point;
         if (!grounded && movementState == MovementState.Jumping) {
             movementState = MovementState.Landing;
+        }
+        if (hit.collider.GetComponent<TerrainPiece>() != null) {
+            currentTerrain = hit.collider.GetComponent<TerrainPiece>();
         }
     }
 
