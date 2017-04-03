@@ -24,6 +24,7 @@ namespace Midgaard
             pm = FindObjectOfType<PlayerMovement>();
 
             for (int i = 0; i < allTerrains.Length; i++) {
+                allTerrains[i].CalculateWorldPosition();
                 if (!startTerrains.Contains(allTerrains[i]))
                 {
                     allTerrains[i].gameObject.SetActive(false);

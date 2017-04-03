@@ -11,6 +11,7 @@ namespace Midgaard
       //with the UnityEvent and invoke the selected method.
 
         public UnityEvent method;
+
         public bool interacted = false;
         public delegate void On_Interacted(float time, Interact interact);
         public event On_Interacted onInteracted;
