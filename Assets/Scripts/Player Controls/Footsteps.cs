@@ -5,18 +5,23 @@ using UnityEngine;
 public class Footsteps : MonoBehaviour
 {
 
-    public AudioClip[] groundWalk;
-    public AudioClip[] groundRun;
+    //public AudioClip[] groundWalk;
+    //public AudioClip[] groundRun;
     public AudioClip groundJump;
     public AudioClip groundLand;
+    //public AudioClip[] woodWalk;
+    //public AudioClip[] woodRun;
     private bool jump = false;
     private bool land = false;
     float audioStepLength = 0.10f;
     private PlayerMovement pM;
     private AudioSource source;
     CharacterController cc;
-    
+    public FootstepLibrary[] footstepLibraries;
     public PlayerMovement.MovementState movementState;
+    public SoundState.SurfaceState surfaceState;
+
+
     // Use this for initialization
     void Start()
     {
@@ -36,41 +41,46 @@ public class Footsteps : MonoBehaviour
             case 0: //Idle
                 break;
             case 1: //Walk
-                WalkOnGround();
+                Walk();
                 break;
             case 2: //Run
-                RunOnGround();
+                Run();
                 break;
             case 3: //Jump
-                JumpOnGround();
+                Jump();
                 break;
             case 4: //Land
-                LandOnGround();
+                Land();
                 break;
         }
 
     }
 
+    public void SetSurface(SoundState.SurfaceState surface) {
+        surfaceState = surface;
+    }
+
+
     
 
-    private void WalkOnGround()
+    private void Walk()
     {
         if (!source.isPlaying)
         {
-            source.clip = groundWalk[Random.Range(0, 7)];
-            source.volume = .60f;
+            source.clip = footstepLibraries[(int) surfaceState].walk[Random.Range(0, footstepLibraries[(int)surfaceState].walk.Length)];
+            source.volume = .30f;
             source.Play();
         }
 
 
     }
 
-    private void RunOnGround()
+    private void Run()
     {
         if (!source.isPlaying)
         {
 
-            source.clip = groundRun[Random.Range(0, 7)];
+            source.clip = footstepLibraries[(int)surfaceState].run[Random.Range(0, footstepLibraries[(int)surfaceState].run.Length)];
             source.volume = 0.10f;
             source.Play();
         }
@@ -78,7 +88,7 @@ public class Footsteps : MonoBehaviour
 
     }
 
-    private void JumpOnGround()
+    private void Jump()
     {
         if (!jump)
         {
@@ -92,7 +102,7 @@ public class Footsteps : MonoBehaviour
 
     }
 
-    private void LandOnGround()
+    private void Land()
     {
         if (!land)
         {
@@ -107,6 +117,15 @@ public class Footsteps : MonoBehaviour
         
 
     }
+
+    void OnControllerColliderHit(ControllerColliderHit other)
+    {
+        if (other.transform.GetComponent<SoundState>() != null) 
+        {
+            SetSurface(other.transform.GetComponent<SoundState>().surface);
+        }
+    }
+
 
 
 
