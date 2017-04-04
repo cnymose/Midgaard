@@ -10,7 +10,7 @@ namespace Midgaard
     {
 
 
-        private TerrainPiece currentTerrain;
+        public TerrainPiece currentTerrain;
         private PlayerMovement pm;
         private TerrainPiece[] allTerrains;
         public List<TerrainPiece> startTerrains;
@@ -34,7 +34,7 @@ namespace Midgaard
             currentTerrain = startTerrains[0];
             StartCoroutine(UpdateTerrain());
         }
-
+        
 
 
         private IEnumerator UpdateTerrain()
@@ -43,7 +43,7 @@ namespace Midgaard
             while (checkingTerrains)
             {
                 yield return new WaitForSeconds(timeBetweenChecks);
-                if (currentTerrain != pm.currentTerrain)
+                if (!currentTerrain.Equals(pm.currentTerrain))
                 {
                     SwitchTerrain(pm.currentTerrain);
                 }
@@ -57,7 +57,7 @@ namespace Midgaard
         {
 
             for (int i = 0; i < currentTerrain.connectedTerrains.Count; i++) {
-                if (currentTerrain.connectedTerrains[i] != newTerrain) {
+                if (!currentTerrain.connectedTerrains[i].Equals( newTerrain)) {
                     currentTerrain.connectedTerrains[i].gameObject.SetActive(false);
                 }
             }
