@@ -12,20 +12,29 @@ public class findTextureTerrain : MonoBehaviour {
     public Vector3 transPos;
 
     // Use this for initialization
-    void Start()
+ /*   void Start()
     {
 
+        terrain = GetComponent<PlayerMovement>().terrain;
         //terrain = Terrain.activeTerrain;
         terrainData = terrain.terrainData;
         terrainPos = terrain.transform.position;
          
     }
-
+    */
     // Update is called once per frame
     void Update()
     {
-        surfaceIndex = GetMainTexture(transform.position);
+
         
+        if(terrainData == null)
+        {
+            updateTerraindata();
+           
+        }
+        surfaceIndex = GetMainTexture(transform.position);
+
+
     }
 
     /*void OnGUI()
@@ -78,7 +87,11 @@ public class findTextureTerrain : MonoBehaviour {
         }
         return maxIndex;
     }
-
+    public void updateTerraindata()
+    {
+        terrainData = terrain.terrainData;
+        terrainPos = terrain.transform.position;
+    }
     
 
   

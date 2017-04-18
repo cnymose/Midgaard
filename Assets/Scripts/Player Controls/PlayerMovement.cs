@@ -57,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
     public MovementState movementState;
     
     public TerrainPiece currentTerrain;
+    public Terrain terrain;
 
     void Start()
     {
@@ -192,7 +193,17 @@ public class PlayerMovement : MonoBehaviour
             movementState = MovementState.Landing;
         }
         if (hit.collider.GetComponent<TerrainPiece>() != null) {
+            Debug.Log("Shablago");
             currentTerrain = hit.collider.GetComponent<TerrainPiece>();
+            terrain = hit.collider.GetComponent<Terrain>();
+            if (!GetComponent<findTextureTerrain>().terrain.Equals(terrain))
+            {
+                GetComponent<findTextureTerrain>().terrain = terrain;
+                GetComponent<findTextureTerrain>().updateTerraindata();
+
+
+            }
+            
         }
     }
 

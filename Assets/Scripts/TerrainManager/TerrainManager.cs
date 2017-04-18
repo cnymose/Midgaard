@@ -57,7 +57,7 @@ namespace Midgaard
         {
 
             for (int i = 0; i < currentTerrain.connectedTerrains.Count; i++) {
-                if (!currentTerrain.connectedTerrains[i].Equals( newTerrain)) {
+                if (!currentTerrain.connectedTerrains[i].Equals(newTerrain)) {
                     currentTerrain.connectedTerrains[i].gameObject.SetActive(false);
                 }
             }
