@@ -81,7 +81,7 @@ public class Footsteps : MonoBehaviour
         {
 
             source.clip = footstepLibraries[(int)surfaceState].run[Random.Range(0, footstepLibraries[(int)surfaceState].run.Length)];
-            source.volume = 0.10f;
+            source.volume = 0.15f;
             source.Play();
         }
 
@@ -126,6 +126,16 @@ public class Footsteps : MonoBehaviour
         }
     }
 
+    
+
+    /*void OnTriggerEnter(Collider other) {
+
+        if (other.transform.GetComponent<SoundState>() != null)
+        {
+            SetSurface(other.transform.GetComponent<SoundState>().surface);
+        }
+
+    }*/
 
 
 
