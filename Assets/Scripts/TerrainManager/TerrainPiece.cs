@@ -7,6 +7,6 @@ public class TerrainPiece : MonoBehaviour {
     public Vector3 worldCenter;
 	
     public void CalculateWorldPosition() {
-        worldCenter = transform.GetComponent<Terrain>().terrainData.size / 2;
+        worldCenter = transform.position + transform.GetComponent<Terrain>().terrainData.size / 2;
     }
 }

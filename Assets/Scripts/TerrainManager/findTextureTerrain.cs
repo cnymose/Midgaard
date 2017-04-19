@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -32,8 +33,16 @@ public class findTextureTerrain : MonoBehaviour {
             updateTerraindata();
            
         }
-        surfaceIndex = GetMainTexture(transform.position);
+        try
+        {
+            surfaceIndex = GetMainTexture(transform.position);
+        }
+        catch (Exception e)
+        {
 
+            Debug.LogException(e, this);
+
+        }
 
     }
 
@@ -71,7 +80,10 @@ public class findTextureTerrain : MonoBehaviour {
     {
         // returns the zero-based index of the most dominant texture
         // on the main terrain at this world position.
-        float[] mix = GetTextureMix(WorldPos);
+        
+            float[] mix = GetTextureMix(WorldPos);
+        
+      
 
         float maxMix = 0;
         int maxIndex = 0;

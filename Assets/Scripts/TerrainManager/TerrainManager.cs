@@ -61,8 +61,22 @@ namespace Midgaard
                     currentTerrain.connectedTerrains[i].gameObject.SetActive(false);
                 }
             }
+            // Setting current Terrain to the new terrain which the player has recently collided with
+            currentTerrain = newTerrain;
 
-                    currentTerrain = newTerrain;
+            // Enabling SoundState, in order to determine which texture the playing is moving on
+            currentTerrain.GetComponent<Terrain>().GetComponent<PlayerSurface>().enabled = true;
+
+            // For loop for disabling SoundState script on all other terrains
+            for(int j = 0; j < allTerrains.Length; j++)
+            {
+                if (!currentTerrain.Equals(allTerrains[j]))
+                {
+                    allTerrains[j].GetComponent<Terrain>().GetComponent<PlayerSurface>().enabled = false;
+                }
+            }
+            if(!startTerrains.Contains(newTerrain))
+                    startTerrains.Add(newTerrain);
         }
 
         private void UpdateVisibleTerrain() {

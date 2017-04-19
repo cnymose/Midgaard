@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
@@ -55,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
     public bool canMove = true;
     public enum MovementState { Idle = 0, Moving = 1, Running = 2, Jumping = 3, Landing = 4};
     public MovementState movementState;
-    
+   
     public TerrainPiece currentTerrain;
     public Terrain terrain;
 
@@ -193,13 +194,17 @@ public class PlayerMovement : MonoBehaviour
             movementState = MovementState.Landing;
         }
         if (hit.collider.GetComponent<TerrainPiece>() != null) {
-            Debug.Log("Shablago");
+
             currentTerrain = hit.collider.GetComponent<TerrainPiece>();
             terrain = hit.collider.GetComponent<Terrain>();
             if (!GetComponent<findTextureTerrain>().terrain.Equals(terrain))
             {
+                Debug.Log("GetComponent Calls");
                 GetComponent<findTextureTerrain>().terrain = terrain;
                 GetComponent<findTextureTerrain>().updateTerraindata();
+                
+        
+
 
 
             }
