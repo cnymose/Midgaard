@@ -12,7 +12,7 @@ namespace Midgaard
 
         public TerrainPiece currentTerrain;
         private PlayerMovement pm;
-        private TerrainPiece[] allTerrains;
+        public TerrainPiece[] allTerrains;
         public List<TerrainPiece> startTerrains;
         private bool checkingTerrains = true;
         private float timeBetweenChecks = 5;
@@ -23,7 +23,8 @@ namespace Midgaard
             allTerrains = FindObjectsOfType<TerrainPiece>();
             pm = FindObjectOfType<PlayerMovement>();
 
-            for (int i = 0; i < allTerrains.Length; i++) {
+            for (int i = 0; i < allTerrains.Length; i++)
+            {
                 allTerrains[i].CalculateWorldPosition();
                 if (!startTerrains.Contains(allTerrains[i]))
                 {
@@ -58,23 +59,24 @@ namespace Midgaard
 
             for (int i = 0; i < currentTerrain.connectedTerrains.Count; i++) {
                 if (!currentTerrain.connectedTerrains[i].Equals(newTerrain)) {
+                    if(!startTerrains.Contains(currentTerrain.connectedTerrains[i]))
                     currentTerrain.connectedTerrains[i].gameObject.SetActive(false);
                 }
             }
             // Setting current Terrain to the new terrain which the player has recently collided with
             currentTerrain = newTerrain;
 
-            // Enabling SoundState, in order to determine which texture the playing is moving on
+      /*      // Enabling PlayerSurface on active terrain
             currentTerrain.GetComponent<Terrain>().GetComponent<PlayerSurface>().enabled = true;
 
-            // For loop for disabling SoundState script on all other terrains
+            // For loop for disabling PLayerSurface script on all other terrains
             for(int j = 0; j < allTerrains.Length; j++)
             {
                 if (!currentTerrain.Equals(allTerrains[j]))
                 {
                     allTerrains[j].GetComponent<Terrain>().GetComponent<PlayerSurface>().enabled = false;
                 }
-            }
+            } */
             if(!startTerrains.Contains(newTerrain))
                     startTerrains.Add(newTerrain);
         }
@@ -93,11 +95,11 @@ namespace Midgaard
             }
 
             if (!lowestDistancePiece.gameObject.activeInHierarchy) {
-                for (int i = 0; i < currentTerrain.connectedTerrains.Count; i++) {
-                    currentTerrain.connectedTerrains[i].gameObject.SetActive(false);
+               for (int i = 0; i < currentTerrain.connectedTerrains.Count; i++) {
+                  currentTerrain.connectedTerrains[i].gameObject.SetActive(false);
                 }
                 lowestDistancePiece.gameObject.SetActive(true);
-            }
+           }
 
         }
     }

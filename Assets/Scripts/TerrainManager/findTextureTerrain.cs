@@ -11,6 +11,7 @@ public class findTextureTerrain : MonoBehaviour {
     private TerrainData terrainData;
     private Vector3 terrainPos; 
     public Vector3 transPos;
+    private bool checkTexture = true;
 
     // Use this for initialization
  /*   void Start()
@@ -23,19 +24,18 @@ public class findTextureTerrain : MonoBehaviour {
          
     }
     */
-    // Update is called once per frame
-    void Update()
-    {
 
+    void Start()
+    {
         
-        if(terrainData == null)
+        if (terrainData == null)
         {
             updateTerraindata();
-           
+
         }
         try
         {
-            surfaceIndex = GetMainTexture(transform.position);
+            StartCoroutine(surfaceIndx());
         }
         catch (Exception e)
         {
@@ -43,6 +43,13 @@ public class findTextureTerrain : MonoBehaviour {
             Debug.LogException(e, this);
 
         }
+    }
+    // Update is called once per frame
+    void Update()
+    {
+
+        
+    
 
     }
 
@@ -50,6 +57,17 @@ public class findTextureTerrain : MonoBehaviour {
     {
         GUI.Box(new Rect(100, 100, 200, 25), "index: " + surfaceIndex.ToString() + ", name: " + terrainData.splatPrototypes[surfaceIndex].texture.name);
     }*/
+
+    IEnumerator surfaceIndx()
+    {
+        while (checkTexture)
+        {
+            yield return new WaitForSeconds(.5f);
+            surfaceIndex = GetMainTexture(transform.position);
+        }
+        
+        yield break;
+    }
 
     private float[] GetTextureMix(Vector3 WorldPos)
     {
