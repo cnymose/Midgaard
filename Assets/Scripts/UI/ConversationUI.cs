@@ -13,11 +13,20 @@ namespace Midgaard
         public int currentChoices;
         public Color highlightedColor;
         public Color normalColor;
+        public NPC_Proxy[] NPCs;
 
         public InputHandler inputHandler;
 
         void Start()
         {
+            NPCs = FindObjectsOfType<NPC_Proxy>();
+            for (int i = 0; i < NPCs.Length; i++)
+            {
+              //  if (NPCs[i].target.interacted)
+                   // choices = NPCs[i].settings.conversation.
+
+
+            }
            
         }
 
@@ -45,8 +54,10 @@ namespace Midgaard
 
         public void SetChoices(string[] choiceStrings) { //Sets the choice text-fields' texts
             inputHandler.conversationChoice = true;
-            for (int i = 0; i < choices.Length; i++)
+            Debug.Log("" + choices.Length);
+            for (int i = 0; i < choiceStrings.Length; i++)
             {
+                
                 if (choiceStrings[i] != null)
                 {
                     choices[i].gameObject.SetActive(true);

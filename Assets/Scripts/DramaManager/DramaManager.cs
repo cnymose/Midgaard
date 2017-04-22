@@ -17,7 +17,8 @@ namespace Midgaard
         {
             public InteractTracker[] interacts;
             public Interact mainEvent;
-            public float maxTimeOfSegment;            
+            public float maxTimeOfSegment;
+            public bool isTimed = false;            
         }
 
 

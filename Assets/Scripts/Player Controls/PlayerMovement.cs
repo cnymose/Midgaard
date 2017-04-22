@@ -216,6 +216,6 @@ public class PlayerMovement : MonoBehaviour
     // have hitpoints and remove some of them based on the distance fallen, add sound effects, etc.
     void FallingDamageAlert(float fallDistance)
     {
-        print("Ouch! Fell " + fallDistance + " units!");
+        print("Ouch! Fell " + fallDistance + " units!"); 
     }
 }

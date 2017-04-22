@@ -47,6 +47,7 @@ namespace Midgaard
                 if (conversation[index].hasChoices) //If we have choices in this segment
                 {
                     ui.SetChoices(conversation[index].choices); //Set the UI conversation choice texts
+                    Debug.Log("" + conversation[index].choices);
                    
                 }
 
