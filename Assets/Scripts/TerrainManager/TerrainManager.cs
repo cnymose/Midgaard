@@ -65,20 +65,8 @@ namespace Midgaard
             }
             // Setting current Terrain to the new terrain which the player has recently collided with
             currentTerrain = newTerrain;
-
-      /*      // Enabling PlayerSurface on active terrain
-            currentTerrain.GetComponent<Terrain>().GetComponent<PlayerSurface>().enabled = true;
-
-            // For loop for disabling PLayerSurface script on all other terrains
-            for(int j = 0; j < allTerrains.Length; j++)
-            {
-                if (!currentTerrain.Equals(allTerrains[j]))
-                {
-                    allTerrains[j].GetComponent<Terrain>().GetComponent<PlayerSurface>().enabled = false;
-                }
-            } */
             if(!startTerrains.Contains(newTerrain))
-                    startTerrains.Add(newTerrain);
+                    startTerrains.Add(newTerrain); // Adding new terrain to start terrain array making it always visible
         }
 
         private void UpdateVisibleTerrain() {
@@ -96,6 +84,7 @@ namespace Midgaard
 
             if (!lowestDistancePiece.gameObject.activeInHierarchy) {
                for (int i = 0; i < currentTerrain.connectedTerrains.Count; i++) {
+                  if(!startTerrains.Contains(currentTerrain.connectedTerrains[i]))
                   currentTerrain.connectedTerrains[i].gameObject.SetActive(false);
                 }
                 lowestDistancePiece.gameObject.SetActive(true);

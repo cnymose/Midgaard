@@ -71,6 +71,7 @@ namespace Midgaard
                 ui.Cleanup(); //Cleanup UI
             }
             ui.gameObject.SetActive(false); //When done disable the UI
+            
             On_Interact_Finished(); //And be done interacting
             yield break;
 

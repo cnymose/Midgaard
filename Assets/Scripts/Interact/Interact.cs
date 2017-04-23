@@ -38,6 +38,7 @@ namespace Midgaard
 
         public void On_Interact_Finished()
         {
+            
             interacted = false;
             inputHandler.SetMovementLocked(false);
             onInteracted(Time.time, this);

@@ -23,7 +23,7 @@ namespace Midgaard
             RaycastHit hit;
             if (Physics.Raycast(cam.position, cam.forward, out hit))
             { //Raycast forward
-                if (hit.transform.gameObject.GetComponent<Interact>())                              //If we hit an object with the "interact" component on it
+                if (hit.transform.gameObject.GetComponent<Interact>() && Vector3.Distance(transform.position, hit.transform.position) < 5)                              //If we hit an object with the "interact" component on it
                 {
                     target = hit.transform.gameObject.GetComponent<Interact>();                       //Set that as out target
 
