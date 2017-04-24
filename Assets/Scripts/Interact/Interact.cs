@@ -40,7 +40,7 @@ namespace Midgaard
         {
             
             interacted = false;
-            inputHandler.SetMovementLocked(false);
+            inputHandler.SetMovementLocked(false);            
             onInteracted(Time.time, this);
         }
     }

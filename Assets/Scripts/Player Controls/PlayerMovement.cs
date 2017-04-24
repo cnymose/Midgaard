@@ -212,6 +212,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+  
     // If falling damage occured, this is the place to do something about it. You can make the player
     // have hitpoints and remove some of them based on the distance fallen, add sound effects, etc.
     void FallingDamageAlert(float fallDistance)

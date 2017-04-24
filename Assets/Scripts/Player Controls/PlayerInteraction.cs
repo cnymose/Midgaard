@@ -41,5 +41,16 @@ namespace Midgaard
                 }
             }
         }
+        void OnTriggerEnter (Collider coll)
+        {
+            if (coll.transform.gameObject.GetComponent<Interact>())
+            {
+                coll.transform.gameObject.GetComponent<Interact>().On_Interact();
+                coll.enabled = false;
+                
+                
+               
+            }
+        }
     }
 }

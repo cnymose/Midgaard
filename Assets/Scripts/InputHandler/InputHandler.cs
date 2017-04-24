@@ -31,6 +31,10 @@ namespace Midgaard
 
         public void SetMovementLocked(bool locked) {
             playerMovement.canMove = !locked;
+            if(locked)
+            playerMovement.gameObject.GetComponent<AudioSource>().enabled = false; // Disable audio source, to avoid looping footstep sound
+            else
+                playerMovement.gameObject.GetComponent<AudioSource>().enabled = true;
         }
 
         public static IEnumerator WaitForButtonDown(string button)

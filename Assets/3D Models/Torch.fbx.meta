@@ -1,0 +1,251 @@
+fileFormatVersion: 2
+guid: 9f53faa14f7989849989051bee2ffba5
+timeCreated: 1493045117
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Armature
+    100002: Armature.001
+    100004: Armature.002
+    100006: Armature.003
+    100008: Armature.004
+    100010: Armature.005
+    100012: Armature.006
+    100014: Armature.007
+    100016: Bone
+    100018: Bone 1
+    100020: Bone 2
+    100022: Bone 3
+    100024: Bone 4
+    100026: Bone 5
+    100028: Bone 6
+    100030: Bone 7
+    100032: Bone.002
+    100034: Bone.002 1
+    100036: Bone.002 2
+    100038: Bone.002 3
+    100040: Bone.003
+    100042: Bone.003 1
+    100044: Bone.003 2
+    100046: Bone.003 3
+    100048: Bone.004
+    100050: Bone.004 1
+    100052: Bone.004 2
+    100054: Bone.004 3
+    100056: Bone.004_end
+    100058: Bone.004_end 1
+    100060: Bone.004_end 2
+    100062: Bone.004_end 3
+    100064: Bone_end
+    100066: Bone_end 1
+    100068: Bone_end 2
+    100070: Bone_end 3
+    100072: Camera
+    100074: Cube
+    100076: Cube.001
+    100078: Cube.002
+    100080: Cube.003
+    100082: Cube.004
+    100084: Icosphere
+    100086: Icosphere.001
+    100088: Icosphere.002
+    100090: Icosphere.003
+    100092: Icosphere.004
+    100094: Lamp
+    100096: //RootNode
+    400000: Armature
+    400002: Armature.001
+    400004: Armature.002
+    400006: Armature.003
+    400008: Armature.004
+    400010: Armature.005
+    400012: Armature.006
+    400014: Armature.007
+    400016: Bone
+    400018: Bone 1
+    400020: Bone 2
+    400022: Bone 3
+    400024: Bone 4
+    400026: Bone 5
+    400028: Bone 6
+    400030: Bone 7
+    400032: Bone.002
+    400034: Bone.002 1
+    400036: Bone.002 2
+    400038: Bone.002 3
+    400040: Bone.003
+    400042: Bone.003 1
+    400044: Bone.003 2
+    400046: Bone.003 3
+    400048: Bone.004
+    400050: Bone.004 1
+    400052: Bone.004 2
+    400054: Bone.004 3
+    400056: Bone.004_end
+    400058: Bone.004_end 1
+    400060: Bone.004_end 2
+    400062: Bone.004_end 3
+    400064: Bone_end
+    400066: Bone_end 1
+    400068: Bone_end 2
+    400070: Bone_end 3
+    400072: Camera
+    400074: Cube
+    400076: Cube.001
+    400078: Cube.002
+    400080: Cube.003
+    400082: Cube.004
+    400084: Icosphere
+    400086: Icosphere.001
+    400088: Icosphere.002
+    400090: Icosphere.003
+    400092: Icosphere.004
+    400094: Lamp
+    400096: //RootNode
+    2300000: Cube
+    3300000: Cube
+    4300000: Cube.004
+    4300002: Cube.003
+    4300004: Cube.002
+    4300006: Cube.001
+    4300008: Icosphere.003
+    4300010: Icosphere.002
+    4300012: Icosphere.004
+    4300014: Icosphere.001
+    4300016: Icosphere
+    4300018: Cube
+    7400000: Armature.007|Armature.004Action
+    7400002: Armature.007|Armature.004Action.001
+    7400004: Armature.007|Armature.004Action.002
+    7400006: Armature.007|Armature.004Action.003
+    7400008: Armature.006|Armature.004Action
+    7400010: Armature.006|Armature.004Action.001
+    7400012: Armature.006|Armature.004Action.002
+    7400014: Armature.006|Armature.004Action.003
+    7400016: Armature.005|Armature.004Action
+    7400018: Armature.005|Armature.004Action.001
+    7400020: Armature.005|Armature.004Action.002
+    7400022: Armature.005|Armature.004Action.003
+    7400024: Armature.004|Armature.004Action
+    7400026: Armature.004|Armature.004Action.001
+    7400028: Armature.004|Armature.004Action.002
+    7400030: Armature.004|Armature.004Action.003
+    7400032: Armature.003|Armature.004Action
+    7400034: Armature.003|Armature.004Action.001
+    7400036: Armature.003|Armature.004Action.002
+    7400038: Armature.003|Armature.004Action.003
+    7400040: Armature.003|ArmatureAction
+    7400042: Armature.003|ArmatureAction.001
+    7400044: Armature.003|ArmatureAction.002
+    7400046: Armature.003|ArmatureAction.003
+    7400048: Armature.003|ArmatureAction.004
+    7400050: Armature.003|ArmatureAction.005
+    7400052: Armature.002|Armature.004Action
+    7400054: Armature.002|Armature.004Action.001
+    7400056: Armature.002|Armature.004Action.002
+    7400058: Armature.002|Armature.004Action.003
+    7400060: Armature.002|ArmatureAction
+    7400062: Armature.002|ArmatureAction.001
+    7400064: Armature.002|ArmatureAction.002
+    7400066: Armature.002|ArmatureAction.003
+    7400068: Armature.002|ArmatureAction.004
+    7400070: Armature.002|ArmatureAction.005
+    7400072: Armature.001|Armature.004Action
+    7400074: Armature.001|Armature.004Action.001
+    7400076: Armature.001|Armature.004Action.002
+    7400078: Armature.001|Armature.004Action.003
+    7400080: Armature.001|ArmatureAction
+    7400082: Armature.001|ArmatureAction.001
+    7400084: Armature.001|ArmatureAction.002
+    7400086: Armature.001|ArmatureAction.003
+    7400088: Armature.001|ArmatureAction.004
+    7400090: Armature.001|ArmatureAction.005
+    7400092: Armature|Armature.004Action
+    7400094: Armature|Armature.004Action.001
+    7400096: Armature|Armature.004Action.002
+    7400098: Armature|Armature.004Action.003
+    7400100: Armature|ArmatureAction
+    7400102: Armature|ArmatureAction.001
+    7400104: Armature|ArmatureAction.002
+    7400106: Armature|ArmatureAction.003
+    7400108: Armature|ArmatureAction.004
+    7400110: Armature|ArmatureAction.005
+    9500000: //RootNode
+    13700000: Cube.001
+    13700002: Cube.002
+    13700004: Cube.003
+    13700006: Cube.004
+    13700008: Icosphere
+    13700010: Icosphere.001
+    13700012: Icosphere.002
+    13700014: Icosphere.003
+    13700016: Icosphere.004
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
