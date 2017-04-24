@@ -12,42 +12,79 @@ public class Spawn_event : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (Input.GetKeyDown (KeyCode.O))
-			raycastStart ();
 	}
 
-	float distToSpawn = 25f;
+	public float distToSpawn = 25f;
 	float hightToSpawn = 100f;
 	public GameObject blob;
+	public float angle; 
 	public float heightOfObject = 1f;
+
+	public float maxHightDiff = 3f;
+
 	GameObject lastPlaced; 
 
-	void raycastStart() {
+	public GameObject terrain;
+
+	bool raycastStart() {
 
 		Vector3 FwH = new Vector3 (transform.forward.x, 0, transform.forward.z);
-		Vector3 normFwH = Vector3.Normalize (FwH);
+		Vector3 normFwH =  Quaternion.Euler (0,Random.Range(-(angle/2),(angle/2)),0) * Vector3.Normalize (FwH);
 		Vector3 starHere = normFwH * distToSpawn + new Vector3 (0, hightToSpawn,0)+transform.position;
 
 		RaycastHit hit;
+
 		if (Physics.Raycast (starHere, -Vector3.up, out hit)) {
-			
 			Vector3 centerPoint = new Vector3 (hit.point.x, hit.point.y + (heightOfObject / 2), hit.point.z);
-
-			if (hit.transform.name == "Terrain") {
-				//Quaternion rot = Quaternion.FromToRotation (Vector3.up, hit.normal) * Quaternion.LookRotation(-transform.forward,transform.forward);
-				//Quaternion rot = Quaternion.FromToRotation (Vector3.up, hit.normal)* Quaternion.LookRotation(transform.forward,blob.transform.forward);
-				Quaternion rot = Quaternion.FromToRotation (Vector3.up, hit.normal) * Quaternion.LookRotation(new Vector3(transform.forward.x, 0, transform.forward.z),-new Vector3(transform.forward.x, 0, transform.forward.z));
-
-				Destroy(lastPlaced);
-				GameObject box = (GameObject)Instantiate(blob, centerPoint, rot);
+			if (hit.transform.name == terrain.gameObject.name) {
+				Destroy (lastPlaced);
+				GameObject box = (GameObject)Instantiate (blob, centerPoint, transform.rotation);
 				lastPlaced = box;
-				Debug.Log (transform.forward);
-				//box.transform.LookAt (transform.position.y);
-//				Debug.Log ("center: " + centerPoint + " rotation:" + rot);
-//				Debug.Log ("norm: " + hit.normal);
-//				Debug.Log (Quaternion.FromToRotation (Vector3.up, hit.normal)+ " " +  Quaternion.LookRotation(-transform.forward,transform.forward));
+				bool shouldDestroy = false;
+				for (int i = 0; i < box.transform.childCount; i++) {
+					RaycastHit childHit;
+					box.transform.GetChild (i).transform.GetChild (0).gameObject.layer = 18; 
+
+					int layerMask = 1 << 18;
+					layerMask = ~layerMask;
+
+					if (Physics.Raycast (new Vector3 (0, 10f, 0) + box.transform.GetChild (i).transform.position, -Vector3.up, out childHit,Mathf.Infinity,layerMask)) {
+						if (childHit.transform.name == terrain.gameObject.name && Vector3.Angle (childHit.normal, blob.transform.up) < 30) {
+							box.transform.GetChild (i).transform.position = childHit.point;
+							box.transform.GetChild (i).transform.rotation =
+								Quaternion.FromToRotation(blob.transform.forward,new Vector3(childHit.point.x-transform.position.x,0,childHit.point.z-transform.position.z)) *
+								blob.transform.GetChild (i).rotation *
+								Quaternion.FromToRotation (blob.transform.up, childHit.normal);
+						} else
+							shouldDestroy = true;
+					}
+				}
+					
+				float hightMax = box.transform.GetChild (0).transform.position.y;
+				float hightMin = hightMax;
+				for (int i = 0; i < box.transform.childCount; i++) {
+					
+					if (box.transform.GetChild (i).transform.position.y > hightMax)
+						hightMax = box.transform.GetChild (i).transform.position.y;
+					if (box.transform.GetChild (i).transform.position.y < hightMin)
+						hightMin = box.transform.GetChild (i).transform.position.y;					
+				}
+				if (Mathf.Abs (hightMax - hightMin) > maxHightDiff) {
+					shouldDestroy = true;
+				}
+
+				if (shouldDestroy == true) {
+					Destroy (lastPlaced);
+					return false;
+				}
+				return true;
+			} else {
+				Destroy (lastPlaced);
+				return false;
 			}
 		}
+		Destroy (lastPlaced);
+		return false;
 	}
 
 }

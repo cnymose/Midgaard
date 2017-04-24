@@ -13,15 +13,16 @@ public class emission_flicker : MonoBehaviour {
 	public float frequency = 0.5f; 	// cycle frequency per second
 
 	public Color emissionColor;
+	Color activeColor;
 
 	// Use this for initialization
 	void Start () {
-		
+		activeColor = emissionColor;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		Color finalColor = emissionColor * Mathf.LinearToGammaSpace (Wave());
+		Color finalColor = activeColor * Mathf.LinearToGammaSpace (Wave());
 		ChangeEmisionColor (finalColor);
 
 	}
@@ -66,6 +67,14 @@ public class emission_flicker : MonoBehaviour {
 		Renderer renderer = GetComponent<Renderer> ();
 		Material mat = renderer.material;
 		mat.SetColor ("_EmissionColor", newColor);
+	}
+
+	void turnOffemission(){
+		activeColor = Color.black;
+	}
+
+	void turnOnEmission(){
+		activeColor = emissionColor;
 	}
 
 }
