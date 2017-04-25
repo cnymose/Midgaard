@@ -56,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
     public bool canMove = true;
     public enum MovementState { Idle = 0, Moving = 1, Running = 2, Jumping = 3, Landing = 4};
     public MovementState movementState;
+    public TerrainData terrDat;
    
     public TerrainPiece currentTerrain;
     public Terrain terrain;
@@ -69,6 +70,7 @@ public class PlayerMovement : MonoBehaviour
         rayDistance = controller.height * .5f + controller.radius;
         slideLimit = controller.slopeLimit - .1f;
         jumpTimer = antiBunnyHopFactor;
+       
     }
 
     void FixedUpdate()
@@ -201,14 +203,17 @@ public class PlayerMovement : MonoBehaviour
             {
                 Debug.Log("GetComponent Calls");
                 GetComponent<findTextureTerrain>().terrain = terrain;
-                GetComponent<findTextureTerrain>().updateTerraindata();
-                
-        
-
-
-
+                GetComponent<findTextureTerrain>().updateTerraindata();          
+                       
             }
-            
+            // temp solution for rune spawning
+            if (currentTerrain.GetComponent<Terrain>().terrainData.Equals(terrDat))
+            {
+                GetComponent<Spawn_event>().enabled = true;
+                GetComponent<Spawn_event>().terrain = currentTerrain.GetComponent<Terrain>();
+            }
+
+
         }
     }
 
@@ -217,6 +222,6 @@ public class PlayerMovement : MonoBehaviour
     // have hitpoints and remove some of them based on the distance fallen, add sound effects, etc.
     void FallingDamageAlert(float fallDistance)
     {
-        print("Ouch! Fell " + fallDistance + " units!"); 
+        //print("Ouch! Fell " + fallDistance + " units!"); 
     }
 }

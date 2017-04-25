@@ -20,7 +20,7 @@ namespace Midgaard { // <--- Important to include namespace whenever making prox
 
         }
 
-        void Set_Settings() {
+        public void Set_Settings() {
             target.settings = settings; //sets the NPCSettings class of the NPC
         }
     }

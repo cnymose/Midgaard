@@ -16,7 +16,7 @@ namespace Midgaard
         public List<TerrainPiece> startTerrains;
         private bool checkingTerrains = true;
         private float timeBetweenChecks = 5;
-
+       
         // Use this for initialization
         void Start()
         {
@@ -31,7 +31,7 @@ namespace Midgaard
                     allTerrains[i].gameObject.SetActive(false);
                 }
             }
-
+            
             currentTerrain = startTerrains[0];
             StartCoroutine(UpdateTerrain());
         }
@@ -65,6 +65,7 @@ namespace Midgaard
             }
             // Setting current Terrain to the new terrain which the player has recently collided with
             currentTerrain = newTerrain;
+          
             if (!startTerrains.Contains(currentTerrain))
             {
                 startTerrains.Add(currentTerrain); // Adding new terrain to start terrain array making it always visible
@@ -82,10 +83,10 @@ namespace Midgaard
                     {
                         if (allTerrains[i].connectedTerrains[j].GetComponent<Terrain>().terrainData.Equals(startTerrains[k].GetComponent<Terrain>().terrainData))
                         {
-                            Debug.Log("Inside first IF");
+                            
                             if (startTerrains[k].transform.parent.Equals(newTerrain.transform.parent))
                            {
-                                Debug.Log("Inside second IF");
+                               
                                 allTerrains[i].connectedTerrains.Remove(allTerrains[i].connectedTerrains[j]);
                             }
                             

@@ -28,13 +28,24 @@ namespace Midgaard
            
         }
 
-        public TimedEvents[] timedEvents;
+        [System.Serializable]
+        public class SpawnedEvents
+        {
+            public NPC spawned_Event;
+        }
 
+      
+
+        public TimedEvents[] timedEvents;
+        public SpawnedEvents[] spawnedEvents;
         public StorySegment[] storySegments;
+        public List<NPC> spawn;
+        
 
         private int currentTimedEvent = 0;
         private int currentStorySegment = 0;
         private int currentMinorEvent = 0;
+        private int currentSpawnedEvent = 0;
         private float distanceTravelledSinceEvent;
         private float lastEventTimestamp;
         private float lastMainEventTimestamp;
@@ -48,14 +59,15 @@ namespace Midgaard
             player = FindObjectOfType<PlayerMovement>().transform;            
             SubscribeToEvents();
             SubscribeMainEvents();
-            SubscribeToEvents();
+            SubscribeTimedEvents();
+            SubscribeSpawnedEvents();
         }
 
         private void On_Interact_Finished(float time, Interact interact)
         {                                                                   //When we interact with a smaller object
             lastEventTimestamp = time;                                      //Set the timestamp
             interact.onInteracted -= On_Interact_Finished;                  //And unsubscribe from its interacted event.
-            
+           
            
         }
 
@@ -64,10 +76,10 @@ namespace Midgaard
             lastMainEventTimestamp = time;                                //Set timestamp
             interact.onInteracted -= On_MainEvent_Finished;               //Unsubscribe the function from interact event
 
-            if (!storySegments[currentStorySegment].isTimed)
+            if (!storySegments[0].isTimed)
             {
-                storySegments[currentStorySegment].isTimed = true;
-                StartCoroutine(CountDown(timedEvents[currentTimedEvent]));
+                storySegments[0].isTimed = true;
+                StartCoroutine(CountDown(timedEvents[0]));
             }
 
             if (currentStorySegment + 1 < storySegments.Length)
@@ -77,6 +89,13 @@ namespace Midgaard
             
         }
 
+        private void On_Spawned_Time_Events(float time, Interact interact)
+        {
+            interact.onInteracted -= On_Spawned_Time_Events;
+            StartCoroutine(WaitForSpawn());
+                
+            
+        }
 
         private void On_Timed_Event(float time, Interact interact)
         {
@@ -92,7 +111,7 @@ namespace Midgaard
 
         public void SubscribeMainEvents()
         {
-            for (int j = 0; j < storySegments.Length; j++)
+            for (int j = 0; j < storySegments.Length - 1; j++)
             {
                 storySegments[j].mainEvent.onInteracted += On_MainEvent_Finished; // Subscribe main events to interact Event
             }
@@ -108,11 +127,19 @@ namespace Midgaard
 
         }
 
-        private void SubScribeTimedEvents()
+        private void SubscribeTimedEvents()
         {
             for(int i = 0; i < timedEvents.Length; i ++)
             {
                 timedEvents[i].timed_Event.onInteracted += On_Timed_Event;
+            }
+        }
+
+        private void SubscribeSpawnedEvents()
+        {
+            for (int i = 0; i < spawnedEvents.Length; i++)
+            {
+                spawnedEvents[i].spawned_Event.onInteracted += On_Spawned_Time_Events;
             }
         }
 
@@ -121,11 +148,41 @@ namespace Midgaard
 
             yield return new WaitForSeconds(10);
             timedEvent.timed_Event.On_Interact();
-
+            
 
             yield return null;
             
         }
 
+        IEnumerator WaitForSpawn()
+        {
+            yield return new WaitForSeconds(20);
+            StartCoroutine(SpawnIt());
+            yield break;
+        }
+
+        IEnumerator SpawnIt()
+        {
+            bool cast = false;
+            while (!cast)
+            {
+                yield return new WaitForSeconds(2);
+                
+                cast = player.gameObject.GetComponent<Spawn_event>().raycastStart();
+                Debug.Log(cast);
+                if (cast)
+                {
+                    FindObjectOfType<shrineNPC>().OnLoad();
+                    spawn.Add(FindObjectOfType<shrineNPC>());
+                    spawn[0].onInteracted += On_Interact_Finished;
+                    yield break;
+
+                }
+                yield return null;
+            }
+            
+                
+        }
+        
     }
 }
