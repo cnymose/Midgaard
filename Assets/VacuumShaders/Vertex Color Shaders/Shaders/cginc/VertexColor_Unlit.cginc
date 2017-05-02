@@ -1,3 +1,5 @@
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
 #ifndef VACUUM_SHADERS_VC_UNLIT_CGINC
 #define VACUUM_SHADERS_VC_UNLIT_CGINC
 
@@ -92,7 +94,7 @@ vOutput vert(vInput v)
 	vOutput o = (vOutput)0;	
 		
 
-	o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+	o.pos = UnityObjectToClipPos(v.vertex);
 
 	#ifdef V_VC_COLOR_AND_TEXTURE_ON
 		o.uv.xy = TRANSFORM_TEX(v.texcoord.xy, _MainTex);		

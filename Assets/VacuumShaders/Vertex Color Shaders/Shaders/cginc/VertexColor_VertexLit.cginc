@@ -1,3 +1,5 @@
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
 #ifndef VACUUM_SHADERS_VC_VERTEXLIT_CGINC
 #define VACUUM_SHADERS_VC_VERTEXLIT_CGINC
 
@@ -51,7 +53,7 @@ v2f vert (appdata_full v)
 	UNITY_INITIALIZE_OUTPUT(v2f,o); 
 
 	
-	o.pos = mul(UNITY_MATRIX_MVP, v.vertex); 
+	o.pos = UnityObjectToClipPos(v.vertex); 
 
 	#ifdef V_VC_COLOR_AND_TEXTURE_ON
 		o.uv.xy = v.texcoord.xy * _MainTex_ST.xy + _MainTex_ST.zw;

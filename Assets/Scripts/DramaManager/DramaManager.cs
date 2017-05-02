@@ -50,9 +50,10 @@ namespace Midgaard
         private float lastEventTimestamp;
         private float lastMainEventTimestamp;
         private float timeSinceEvent;
+        private Interact[] interactables;
 
         public Transform player;
-        
+        private bool timedinteract = false;
      
         void Start()
         {
@@ -61,6 +62,7 @@ namespace Midgaard
             SubscribeMainEvents();
             SubscribeTimedEvents();
             SubscribeSpawnedEvents();
+            interactables = FindObjectsOfType<Interact>();
         }
 
         private void On_Interact_Finished(float time, Interact interact)
@@ -79,7 +81,7 @@ namespace Midgaard
             if (!storySegments[0].isTimed)
             {
                 storySegments[0].isTimed = true;
-                StartCoroutine(CountDown(timedEvents[0]));
+                StartCoroutine(CountDown(timedEvents[0],10));
             }
 
             if (currentStorySegment + 1 < storySegments.Length)
@@ -143,12 +145,26 @@ namespace Midgaard
             }
         }
 
-        IEnumerator CountDown(TimedEvents timedEvent)
+        IEnumerator CountDown(TimedEvents timedEvent, float time)
         {
-
-            yield return new WaitForSeconds(10);
-            timedEvent.timed_Event.On_Interact();
-            
+            Debug.Log("Countdown");
+            timedinteract = false;
+            yield return new WaitForSeconds(time);
+            foreach(Interact x in interactables)
+            {
+                if (x.interacted)
+                {
+                    timedinteract = true;
+                }
+            }
+            if (!timedinteract)
+            {
+                timedEvent.timed_Event.On_Interact();
+            }
+            else
+            {
+                StartCoroutine(CountDown(timedEvent, 2));
+            }
 
             yield return null;
             
