@@ -5,8 +5,10 @@ using UnityEngine;
 public class TerrainPiece : MonoBehaviour {
     public List<TerrainPiece> connectedTerrains;
     public Vector3 worldCenter;
+    public GameObject coordinateCube;
 	
     public void CalculateWorldPosition() {
-        worldCenter = transform.position + transform.GetComponent<Terrain>().terrainData.size / 2;
+        worldCenter = coordinateCube.transform.position;
+        
     }
 }

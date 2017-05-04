@@ -29,11 +29,11 @@ using UnityEngine;
 
         GameObject lastPlaced;
 
-        public Terrain terrain;
+       // public Terrain terrain;
 
         public bool raycastStart()
         {
-            terrain = GetComponent<PlayerMovement>().currentTerrain.GetComponent<Terrain>();
+          //  terrain = GetComponent<PlayerMovement>().currentTerrain.GetComponent<Terrain>();
             Vector3 FwH = new Vector3(transform.forward.x, 0, transform.forward.z);
             Vector3 normFwH = Quaternion.Euler(0, Random.Range(-(angle / 2), (angle / 2)), 0) * Vector3.Normalize(FwH);
             Vector3 starHere = normFwH * distToSpawn + new Vector3(0, hightToSpawn, 0) + transform.position;
@@ -43,7 +43,7 @@ using UnityEngine;
             if (Physics.Raycast(starHere, -Vector3.up, out hit))
             {
                 Vector3 centerPoint = new Vector3(hit.point.x, hit.point.y + (heightOfObject / 2), hit.point.z);
-                if (hit.transform.name == terrain.gameObject.name)
+                if (hit.transform.tag == "SpawnableGround")
                 {
                     Destroy(lastPlaced);
                     GameObject box = (GameObject)Instantiate(blob, centerPoint, transform.rotation);
@@ -60,7 +60,7 @@ using UnityEngine;
                         if (Physics.Raycast(new Vector3(0, 20f, 0) + box.transform.GetChild(i).transform.position, -Vector3.up, out childHit, Mathf.Infinity, layerMask))
                         {
                         
-                        if (childHit.transform.name == terrain.gameObject.name && Vector3.Angle(childHit.normal, blob.transform.up) < 30)
+                        if (childHit.transform.tag == "SpawnableGround" && Vector3.Angle(childHit.normal, blob.transform.up) < 30)
                             {
                             
                                 box.transform.GetChild(i).transform.position = childHit.point;

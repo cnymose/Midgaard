@@ -56,10 +56,10 @@ public class PlayerMovement : MonoBehaviour
     public bool canMove = true;
     public enum MovementState { Idle = 0, Moving = 1, Running = 2, Jumping = 3, Landing = 4};
     public MovementState movementState;
-    public TerrainData terrDat;
+   // public TerrainData terrDat;
    
     public TerrainPiece currentTerrain;
-    public Terrain terrain;
+    //public Terrain terrain;
 
     void Start()
     {
@@ -195,22 +195,22 @@ public class PlayerMovement : MonoBehaviour
         if (!grounded && movementState == MovementState.Jumping) {
             movementState = MovementState.Landing;
         }
-        if (hit.collider.GetComponent<TerrainPiece>() != null) {
+        if (hit.collider.gameObject.GetComponentInParent<TerrainPiece>() != null) {
+            
+            currentTerrain = hit.collider.gameObject.GetComponentInParent<TerrainPiece>();
+            //   terrain = hit.collider.GetComponent<Terrain>();
+            /*     if (!GetComponent<findTextureTerrain>().terrain.Equals(terrain))
+                 {
+                     Debug.Log("GetComponent Calls");
+                     GetComponent<findTextureTerrain>().terrain = terrain;
+                     GetComponent<findTextureTerrain>().updateTerraindata();          
 
-            currentTerrain = hit.collider.GetComponent<TerrainPiece>();
-            terrain = hit.collider.GetComponent<Terrain>();
-            if (!GetComponent<findTextureTerrain>().terrain.Equals(terrain))
-            {
-                Debug.Log("GetComponent Calls");
-                GetComponent<findTextureTerrain>().terrain = terrain;
-                GetComponent<findTextureTerrain>().updateTerraindata();          
-                       
-            }
+                 }*/
             // temp solution for rune spawning
-            if (currentTerrain.GetComponent<Terrain>().terrainData.Equals(terrDat))
+            if (currentTerrain.tag == "SpawnArea")
             {
                 GetComponent<Spawn_event>().enabled = true;
-                GetComponent<Spawn_event>().terrain = currentTerrain.GetComponent<Terrain>();
+         //       GetComponent<Spawn_event>().terrain = currentTerrain.GetComponent<Terrain>();
             }
 
 

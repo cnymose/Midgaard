@@ -16,6 +16,7 @@ namespace Midgaard
         public List<TerrainPiece> startTerrains;
         private bool checkingTerrains = true;
         private float timeBetweenChecks = 5;
+        private Vector3 test;
        
         // Use this for initialization
         void Start()
@@ -26,6 +27,8 @@ namespace Midgaard
             for (int i = 0; i < allTerrains.Length; i++)
             {
                 allTerrains[i].CalculateWorldPosition();
+                test = allTerrains[i].worldCenter;
+                Debug.Log("x:" + test.x + "y:" + test.y + "z:" + test.z);
                 if (!startTerrains.Contains(allTerrains[i]))
                 {
                     allTerrains[i].gameObject.SetActive(false);
@@ -72,30 +75,52 @@ namespace Midgaard
                 RemoveFromSearch(currentTerrain);
             }
         }
+        /*
+                private void RemoveFromSearch(TerrainPiece newTerrain)
+                {
+                    for(int i = 0; i < allTerrains.Length; i++)
+                    {
+                        for (int j = 0; j < allTerrains[i].connectedTerrains.Count; j ++)
+                        {
+                            for (int k = 0; k < startTerrains.Count; k++)
+                            {
+                                if (allTerrains[i].connectedTerrains[j].GetComponent<Terrain>().terrainData.Equals(startTerrains[k].GetComponent<Terrain>().terrainData))
+                                {
+
+                                    if (startTerrains[k].transform.parent.Equals(newTerrain.transform.parent))
+                                   {
+
+                                        allTerrains[i].connectedTerrains.Remove(allTerrains[i].connectedTerrains[j]);
+                                    }
+
+                                }
+                             }
+                         }
+                    }
+                }
+                */
 
         private void RemoveFromSearch(TerrainPiece newTerrain)
         {
-            for(int i = 0; i < allTerrains.Length; i++)
+            for (int i = 0; i < allTerrains.Length; i++)
             {
-                for (int j = 0; j < allTerrains[i].connectedTerrains.Count; j ++)
+                for (int j = 0; j < allTerrains[i].connectedTerrains.Count; j++)
                 {
                     for (int k = 0; k < startTerrains.Count; k++)
                     {
-                        if (allTerrains[i].connectedTerrains[j].GetComponent<Terrain>().terrainData.Equals(startTerrains[k].GetComponent<Terrain>().terrainData))
-                        {
-                            
-                            if (startTerrains[k].transform.parent.Equals(newTerrain.transform.parent))
-                           {
-                               
+                       
+
+                            if (startTerrains[k].transform.Equals(newTerrain.transform))
+                            {
+
                                 allTerrains[i].connectedTerrains.Remove(allTerrains[i].connectedTerrains[j]);
                             }
-                            
-                        }
-                     }
-                 }
+
+                        
+                    }
+                }
             }
         }
-
         private void UpdateVisibleTerrain() {
 
             float lowestDist = Vector3.Distance(currentTerrain.connectedTerrains[0].worldCenter, pm.transform.position);
