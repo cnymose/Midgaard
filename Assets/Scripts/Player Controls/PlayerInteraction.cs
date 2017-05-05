@@ -20,7 +20,7 @@ namespace Midgaard
         }
 
         // Update is called once per frame
-        void Update()
+        void FixedUpdate()
         {
             RaycastHit hit;
             if (Physics.Raycast(cam.position, cam.forward, out hit))

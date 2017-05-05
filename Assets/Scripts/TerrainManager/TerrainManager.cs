@@ -27,8 +27,7 @@ namespace Midgaard
             for (int i = 0; i < allTerrains.Length; i++)
             {
                 allTerrains[i].CalculateWorldPosition();
-                test = allTerrains[i].worldCenter;
-                Debug.Log("x:" + test.x + "y:" + test.y + "z:" + test.z);
+               
                 if (!startTerrains.Contains(allTerrains[i]))
                 {
                     allTerrains[i].gameObject.SetActive(false);
@@ -110,7 +109,7 @@ namespace Midgaard
                     {
                        
 
-                            if (startTerrains[k].transform.Equals(newTerrain.transform))
+                            if (startTerrains[k].Equals(newTerrain))
                             {
 
                                 allTerrains[i].connectedTerrains.Remove(allTerrains[i].connectedTerrains[j]);
@@ -126,7 +125,7 @@ namespace Midgaard
             float lowestDist = Vector3.Distance(currentTerrain.connectedTerrains[0].worldCenter, pm.transform.position);
             TerrainPiece lowestDistancePiece = currentTerrain.connectedTerrains[0];
 
-            for (int i = 1; i < currentTerrain.connectedTerrains.Count; i++)
+            for (int i = 0; i < currentTerrain.connectedTerrains.Count; i++)
             {
               
                     float dist = Vector3.Distance(currentTerrain.connectedTerrains[i].worldCenter, pm.transform.position);

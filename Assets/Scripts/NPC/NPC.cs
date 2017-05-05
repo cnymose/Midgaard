@@ -52,7 +52,7 @@ namespace Midgaard
                 ui.SetText(conversation[index].text); //Set the text
                 ui.currentChoices = conversation[index].choices.Length - 1;
 
-                if (source != null)
+                if (source.clip != null)
                 source.Play();
                 
 
