@@ -38,6 +38,16 @@ namespace Midgaard
             StartCoroutine(Conversation()); //Start the conversation
         }
 
+        public void SetProxyTarget() // Find and set proxy's target npc - Enabling us to use less proxies
+        {
+            
+            var temp = GameObject.Find(transform.name + "_Proxy").gameObject.GetComponent<NPC_Proxy>();
+            
+            
+                temp.target = this;
+            
+        }
+
         IEnumerator Conversation()
         {
             bool conversationRunning = true;

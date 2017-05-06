@@ -10,6 +10,7 @@ namespace Midgaard
         private Transform cam;         //Camera
         private Vector3 screenPoint;
         public Canvas Interact_UI;
+        private NPC npc;
         
 
 
@@ -28,6 +29,10 @@ namespace Midgaard
                 if (hit.transform.gameObject.GetComponent<Interact>() && Vector3.Distance(transform.position, hit.transform.position) < 5)                              //If we hit an object with the "interact" component on it
                 {
                     target = hit.transform.gameObject.GetComponent<Interact>();                       //Set that as out target
+                    if(hit.transform.tag == "NPC")
+                    {                        
+                        target.GetComponent<NPC>().SetProxyTarget();
+                    }
                     Interact_UI.gameObject.SetActive(true);
                 }
                 else

@@ -13,10 +13,12 @@ namespace Midgaard
 
         public void setText()
         {
+            npcProx = GameObject.Find("Guard_Proxy").gameObject.GetComponent<NPC_Proxy>();            
             var rnd = Random.Range(0, strings.Length);
             npcProx.settings.conversation[0].text = strings[rnd];
             npcProx.settings.conversation[0].endsConversation = true;
             npcProx.settings.clip = clips[rnd];
+            npcProx.Set_Settings();
             Start_Conversation();
 
         }
