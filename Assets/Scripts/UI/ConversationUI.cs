@@ -54,7 +54,7 @@ namespace Midgaard
 
         public void SetChoices(string[] choiceStrings) { //Sets the choice text-fields' texts
             inputHandler.conversationChoice = true;
-            Debug.Log("" + choices.Length);
+
             for (int i = 0; i < choiceStrings.Length; i++)
             {
                 

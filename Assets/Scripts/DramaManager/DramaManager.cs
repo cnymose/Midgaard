@@ -73,6 +73,8 @@ namespace Midgaard
            
         }
 
+        
+
         private void On_MainEvent_Finished(float time, Interact interact) //When we interact with main events
         {                                               
             lastMainEventTimestamp = time;                                //Set timestamp
@@ -149,10 +151,11 @@ namespace Midgaard
         {
             Debug.Log("Countdown");
             timedinteract = false;
+            Debug.Log("" + interactables.Length);
             yield return new WaitForSeconds(time);
             foreach(Interact x in interactables)
             {
-                if (x.interacted)
+                if (x.interacting)
                 {
                     timedinteract = true;
                 }
@@ -172,6 +175,7 @@ namespace Midgaard
 
         IEnumerator WaitForSpawn()
         {
+            Debug.Log("Waiting");
             yield return new WaitForSeconds(20);
             StartCoroutine(SpawnIt());
             yield break;
@@ -182,6 +186,7 @@ namespace Midgaard
             bool cast = false;
             while (!cast)
             {
+                Debug.Log("!CAST");
                 yield return new WaitForSeconds(2);
                 
                 cast = player.gameObject.GetComponent<Spawn_event>().raycastStart();

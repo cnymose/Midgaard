@@ -29,8 +29,11 @@ namespace Midgaard
         [HideInInspector] //Hide the settings from the NPC itself so that we don't accidentally not use a proxy
         public NPCSettings settings; //Create an instance of our settings
         ConversationUI ui; //Reference to the UI
-        
 
+        public override void Start()
+        {
+            base.Start();
+        }
         public void Start_Conversation()
         {
             GameObject.Find("Singleton").GetComponent<Singleton>().conversationUI.gameObject.SetActive(true); //Find the singleton and activate the conversation UI.
@@ -47,6 +50,7 @@ namespace Midgaard
                 temp.target = this;
             
         }
+     
 
         IEnumerator Conversation()
         {
@@ -84,7 +88,8 @@ namespace Midgaard
                 else {
                     if (conversation[index].hasChoices)
                     {
-                        index = conversation[index].choicePointer[ui.choicePointer]; //If we made a conversation choice, go to the index that the chosen choice leads to                        
+                        index = conversation[index].choicePointer[ui.choicePointer]; //If we made a conversation choice, go to the index that the chosen choice leads to 
+                        if(clips.Length > 0)                       
                         source.clip = clips[index-1];
                        
                     }

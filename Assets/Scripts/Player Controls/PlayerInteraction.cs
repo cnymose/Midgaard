@@ -41,7 +41,7 @@ namespace Midgaard
                     Interact_UI.gameObject.SetActive(false);
                 }
             }
-            if (target != null && !target.interacted)
+            if (target != null && !target.interacting)
             {                                          //If we have a target
                
                 if (Input.GetButtonDown("Interact"))

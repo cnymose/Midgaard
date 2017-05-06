@@ -43,8 +43,9 @@ using UnityEngine;
             if (Physics.Raycast(starHere, -Vector3.up, out hit))
             {
                 Vector3 centerPoint = new Vector3(hit.point.x, hit.point.y + (heightOfObject / 2), hit.point.z);
-                if (hit.transform.tag == "SpawnableGround")
+                if (hit.transform.gameObject.tag == "Spawn Area")
                 {
+                Debug.Log("" + hit.transform.tag);
                     Destroy(lastPlaced);
                     GameObject box = (GameObject)Instantiate(blob, centerPoint, transform.rotation);
                     lastPlaced = box;
@@ -60,7 +61,7 @@ using UnityEngine;
                         if (Physics.Raycast(new Vector3(0, 20f, 0) + box.transform.GetChild(i).transform.position, -Vector3.up, out childHit, Mathf.Infinity, layerMask))
                         {
                         
-                        if (childHit.transform.tag == "SpawnableGround" && Vector3.Angle(childHit.normal, blob.transform.up) < 30)
+                        if (childHit.transform.gameObject.tag == "Spawn Area" && Vector3.Angle(childHit.normal, blob.transform.up) < 30)
                             {
                             
                                 box.transform.GetChild(i).transform.position = childHit.point;
