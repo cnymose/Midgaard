@@ -9,7 +9,7 @@ namespace Midgaard
         private AudioSource source;
         private NPC_Proxy npcProx;
         private string[] strings = {"Go away!", "This is no inn!", "I would not open for Vidar himself!" };
-       // public AudioClip[] clips;
+       public AudioClip[] clips;
 
         
        public void setText()
@@ -18,7 +18,7 @@ namespace Midgaard
             var rnd = Random.Range(0, strings.Length);
             npcProx.settings.conversation[0].text = strings[rnd];
             npcProx.settings.conversation[0].endsConversation = true;
-            //npcProx.settings.clip = clips[rnd];
+            npcProx.settings.clip = clips[rnd];
             npcProx.Set_Settings();
             
         }
