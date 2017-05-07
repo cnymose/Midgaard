@@ -14,6 +14,7 @@ namespace Midgaard
         private PlayerMovement pm;
         public TerrainPiece[] allTerrains;
         public List<TerrainPiece> startTerrains;
+        public int temporalSequence = 0;
         private bool checkingTerrains = true;
         private float timeBetweenChecks = 5;
         private Vector3 test;
@@ -67,6 +68,7 @@ namespace Midgaard
             }
             // Setting current Terrain to the new terrain which the player has recently collided with
             currentTerrain = newTerrain;
+            temporalSequence = currentTerrain.temporalOrder;
           
             if (!startTerrains.Contains(currentTerrain))
             {
@@ -141,7 +143,10 @@ namespace Midgaard
                   if(!startTerrains.Contains(currentTerrain.connectedTerrains[i]))
                   currentTerrain.connectedTerrains[i].gameObject.SetActive(false);
                 }
-                lowestDistancePiece.gameObject.SetActive(true);
+                if (lowestDistancePiece.temporalOrder == temporalSequence + 1)
+                {
+                    lowestDistancePiece.gameObject.SetActive(true);
+                }
            }
 
         }

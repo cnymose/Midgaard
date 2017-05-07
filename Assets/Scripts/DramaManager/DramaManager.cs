@@ -88,7 +88,8 @@ namespace Midgaard
 
             if (currentStorySegment + 1 < storySegments.Length)
             {
-                currentStorySegment++;                                    //If there are more story segments left, set the next current story segment.
+                currentStorySegment++;                                    //If there are more story segments left, set the next current story segment.'
+                SubscribeToEvents();
             }
             
         }
@@ -96,7 +97,14 @@ namespace Midgaard
         private void On_Spawned_Time_Events(float time, Interact interact)
         {
             Debug.Log("On_Spawned_Time_Events");
-            interact.onInteracted -= On_Spawned_Time_Events;
+            foreach (Interact vrokr in interactables)
+            {
+                if(interact.transform.gameObject.name == "Vrokr" && vrokr.transform.gameObject.name == "Vrokr") // If one instance of Vrokr is interacted with, unsubscribe that instance, and all others.
+                {
+                    interact.onInteracted -= On_Spawned_Time_Events;
+                }
+            }
+            
             StartCoroutine(WaitForSpawn());
                 
             
@@ -106,7 +114,7 @@ namespace Midgaard
         {
             interact.onInteracted -= On_Timed_Event;
             Debug.Log("On_Timed_Event");
-            if (currentTimedEvent + 1 < timedEvents.Length)
+            if (currentTimedEvent + 1 < timedEvents.Length) // If there are more timed events, set the next timed event to current.
             {
                 currentTimedEvent++;
             }
