@@ -2,31 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-namespace Midgaard
-{
+
     public class TerrainSpawnManager : MonoBehaviour
     {
         public int currentArea = 0;
-        // public List<TerrainPiece> spawnableArea;
-       // public List<TerrainPiece> lockedPiece;
+        
         public List<GameObject> areas;
         private PlayerMovement pm;
         private GameObject player;
         public TerrainPiece currentPiece;
+        private List<GameObject> allAreas; 
         private GameObject previousPiece;
         private GameObject[] exits = new GameObject[3];
+        private GameObject previousExit;
         private bool calculateDistance = true;
 
         void Start()
         {
-            Debug.Log("Start");
+         
+
             player = GameObject.Find("Player").gameObject;
             pm = player.GetComponent<PlayerMovement>();
             
            
             
             previousPiece = currentPiece.transform.gameObject;
-          
+            
             exits[0] = currentPiece.transform.FindChild("Exit " + 1).gameObject;
             exits[1] = currentPiece.transform.FindChild("Exit " + 2).gameObject;
             exits[2] = currentPiece.transform.FindChild("Exit " + 3).gameObject;
@@ -40,14 +41,21 @@ namespace Midgaard
         {
             while (calculateDistance)
             {
-                Debug.Log("Ja vi kører");
+              
                 yield return new WaitForSeconds(5f);
                 if (!currentPiece.Equals(pm.currentTerrain))
                 {
-
+                    
                     currentPiece = pm.currentTerrain;
                     previousPiece = currentPiece.transform.gameObject;
+                    areas.Remove(currentPiece.gameObject);
+                    
+                    if(areas.Contains(currentPiece.gameObject))
                     currentArea++;
+                
+                if (previousExit != null && !areas.Contains(currentPiece.gameObject))
+                    previousExit.transform.gameObject.SetActive(false);
+                    Debug.Log("Current Area " + currentArea);
                    // lockedPiece.Add(currentPiece);
 
                     exits[0] = currentPiece.transform.FindChild("Exit " + 1).gameObject;
@@ -74,7 +82,7 @@ namespace Midgaard
             float shortestDistance = 0;
             GameObject closestExit = null;
             int j = 0;
-            Debug.Log("DistanceToExit");
+            
             while (iterate)
             {
                 if (exits[j] != null)
@@ -93,13 +101,14 @@ namespace Midgaard
             {
                 float dist = Vector3.Distance(player.transform.position, exits[i].transform.position);
 
-                if (dist < shortestDistance)
+                if (dist < shortestDistance && exits[i].activeInHierarchy)
                 {
                     shortestDistance = dist;
                     closestExit = exits[i];
                 }
 
             }
+            Debug.Log("Closest Exit " + closestExit.transform.parent.name);
             spawnArea(closestExit);
 
         }
@@ -107,12 +116,12 @@ namespace Midgaard
 
         public void spawnArea(GameObject exit)
         {
-            Debug.Log("SpawnArea" + exit.transform.name);
+          
             var area = areas[currentArea];
             var rotation = area.transform.rotation;
             var temp = exit;
             area.transform.rotation = previousPiece.transform.rotation;
-
+            
             if (exit.transform.name == "Exit 1")
             {
                 area.transform.RotateAround(area.transform.position, area.transform.up, 270);
@@ -126,9 +135,9 @@ namespace Midgaard
             var dir = exit.transform.position - area.transform.FindChild("Enter").transform.position;
             area.transform.position += dir;
             area.SetActive(true);
+            previousExit = exit;
 
         }
 
 
     }
-}
