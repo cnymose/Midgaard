@@ -59,9 +59,11 @@ public class LMMovement : MonoBehaviour {
 			rend.enabled = true;
 			GetComponent<Light> ().intensity = 3;
 			hasBeenOff = true;
+			ChangeTintColor (startTint);
 		}
 
 		if (GetComponent<Light> ().intensity > 0 && rend.enabled == false) {
+			explode ();
 		} else if (GetComponent<Light> ().intensity == 0) {
 			cRend.enabled = rend.enabled;
 			explode ();
@@ -110,20 +112,34 @@ public class LMMovement : MonoBehaviour {
 
 	float stratemissionrate;
 	ParticleSystem mysystem;
+	Material myPart;
+	Color startTint;
 
 	void startPart(){
 		mysystem = transform.GetChild(0).GetComponent<ParticleSystem>();
-
+		myPart = transform.GetChild(0).GetComponent<Renderer>().material;
+		startTint = myPart.GetColor ("_TintColor");
 	}
+
+
 
 	void explode(){
 		var emission = mysystem.emission;
 		emission.rateOverTime = 1000f;
+		ChangeTintColor (myPart.GetColor ("_TintColor") * 0.95f);
 	}
+
 
 	void normalEmission(){
 		var emission = mysystem.emission;
 		emission.rateOverTime = 20f;
+	}
+
+
+
+
+	void ChangeTintColor(Color newColor) {
+		myPart.SetColor ("_TintColor", newColor);
 	}
 
 }
