@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace Midgaard
 {
+    
     public abstract class Interact : MonoBehaviour
     { //This script can be placed on any object that we want the player
       //to be able to interact with. We can point to any gameobjects class/method,
@@ -45,10 +47,11 @@ namespace Midgaard
             inputHandler.SetMovementLocked(false);
             if (!interacted)
             {
-                onInteracted(Time.time, this as Interact);
+                onInteracted(Time.time, this);
                 interacted = !interacted;
             }
             
         }
     }
 }
+

@@ -207,7 +207,7 @@ public class PlayerMovement : MonoBehaviour
 
                  }*/
             // temp solution for rune spawning
-            if (currentTerrain.tag == "SpawnArea")
+            if (hit.collider.gameObject.tag == "Spawn Area")
             {
                 GetComponent<Spawn_event>().enabled = true;
          //       GetComponent<Spawn_event>().terrain = currentTerrain.GetComponent<Terrain>();

@@ -15,9 +15,9 @@ namespace Midgaard
             npcprox.target = this;
             npcprox.Set_Settings();
             NPCs = FindObjectsOfType<NPC>();
-            var manager = FindObjectOfType<DramaManager>();
-            manager.storySegments[1].mainEvent = this;
-            manager.spawnedEvents[0].spawned_Event = this;
+          /*  var manager = FindObjectOfType<DramaManager>();
+            manager.storySegments[2].mainEvent = this;
+            manager.spawnedEvents[0].spawned_Event = this; */
             source = GameObject.Find("DoorKnock").gameObject.GetComponent<AudioSource>();
             source.Play();
             StartCoroutine(wait());

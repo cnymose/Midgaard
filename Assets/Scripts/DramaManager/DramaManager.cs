@@ -69,8 +69,8 @@ namespace Midgaard
         {                                                                   //When we interact with a smaller object
             lastEventTimestamp = time;                                      //Set the timestamp
             interact.onInteracted -= On_Interact_Finished;                  //And unsubscribe from its interacted event.
-           
-           
+            Debug.Log("On_Interact_Finished");
+
         }
 
         
@@ -79,7 +79,7 @@ namespace Midgaard
         {                                               
             lastMainEventTimestamp = time;                                //Set timestamp
             interact.onInteracted -= On_MainEvent_Finished;               //Unsubscribe the function from interact event
-
+            Debug.Log("On_MainEvent_Finished");
             if (!storySegments[0].isTimed)
             {
                 storySegments[0].isTimed = true;
@@ -95,6 +95,7 @@ namespace Midgaard
 
         private void On_Spawned_Time_Events(float time, Interact interact)
         {
+            Debug.Log("On_Spawned_Time_Events");
             interact.onInteracted -= On_Spawned_Time_Events;
             StartCoroutine(WaitForSpawn());
                 
@@ -104,8 +105,8 @@ namespace Midgaard
         private void On_Timed_Event(float time, Interact interact)
         {
             interact.onInteracted -= On_Timed_Event;
-
-            if(currentTimedEvent + 1 < timedEvents.Length)
+            Debug.Log("On_Timed_Event");
+            if (currentTimedEvent + 1 < timedEvents.Length)
             {
                 currentTimedEvent++;
             }
@@ -115,7 +116,7 @@ namespace Midgaard
 
         public void SubscribeMainEvents()
         {
-            for (int j = 0; j < storySegments.Length - 1; j++)
+            for (int j = 0; j < storySegments.Length; j++)
             {
                 storySegments[j].mainEvent.onInteracted += On_MainEvent_Finished; // Subscribe main events to interact Event
             }

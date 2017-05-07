@@ -30,10 +30,7 @@ namespace Midgaard
         public NPCSettings settings; //Create an instance of our settings
         ConversationUI ui; //Reference to the UI
 
-        public override void Start()
-        {
-            base.Start();
-        }
+      
         public void Start_Conversation()
         {
             GameObject.Find("Singleton").GetComponent<Singleton>().conversationUI.gameObject.SetActive(true); //Find the singleton and activate the conversation UI.
@@ -73,7 +70,7 @@ namespace Midgaard
                 if (conversation[index].hasChoices) //If we have choices in this segment
                 {
                     ui.SetChoices(conversation[index].choices); //Set the UI conversation choice texts
-                    Debug.Log("" + conversation[index].choices);
+
                    
                 }
 
