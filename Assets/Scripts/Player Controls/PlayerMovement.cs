@@ -56,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
     public bool canMove = true;
     public enum MovementState { Idle = 0, Moving = 1, Running = 2, Jumping = 3, Landing = 4};
     public MovementState movementState;
+    
    // public TerrainData terrDat;
    
     public TerrainPiece currentTerrain;
@@ -198,6 +199,7 @@ public class PlayerMovement : MonoBehaviour
         if (hit.collider.gameObject.GetComponentInParent<TerrainPiece>() != null) {
             
             currentTerrain = hit.collider.gameObject.GetComponentInParent<TerrainPiece>();
+            
             //   terrain = hit.collider.GetComponent<Terrain>();
             /*     if (!GetComponent<findTextureTerrain>().terrain.Equals(terrain))
                  {
