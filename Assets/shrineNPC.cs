@@ -15,8 +15,9 @@ namespace Midgaard
 
             for (int i = 0; i < npcProxys.Length; i ++)
             {
-                if(npcProxys[i].name == "shrine_Proxy")
+                if(npcProxys[i].name == "Shrine_Proxy")
                 {
+					Debug.Log("UKAS SHRINE TEKST");
                     npcProxys[i].target = this;
                     npcProxys[i].Set_Settings();
                 }
