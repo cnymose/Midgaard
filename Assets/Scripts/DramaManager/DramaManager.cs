@@ -117,7 +117,10 @@ namespace Midgaard
             }
             
             StartCoroutine(WaitForSpawn());
-                
+
+//			if (Vector3.Distance (player.position, FindObjectOfType<shrineNPC> ().gameObject.transform.position) > 10) {
+//				StartCoroutine (WaitForSpawn ());
+//			}    
             
         }
 
@@ -220,7 +223,9 @@ namespace Midgaard
                     GameObject.Find("kenna").gameObject.GetComponent<AudioSource>().Play();
                     StartCoroutine(guiTime());
                     spawn[0].onInteracted += On_Interact_Finished;
-               
+               		
+					StartCoroutine (checkforInteracted ());
+
                     yield break;
 
                 }
@@ -229,6 +234,19 @@ namespace Midgaard
             
                 
         }
+
+		IEnumerator checkforInteracted(){
+			var temp = FindObjectOfType<shrineNPC>();
+			yield return new WaitForSeconds(2);
+			while (!temp.interacted) {
+				if (Vector3.Distance (player.position, FindObjectOfType<shrineNPC> ().gameObject.transform.position) > 10) {
+					spawn.Remove (FindObjectOfType<shrineNPC>());
+					StartCoroutine (WaitForSpawn ());
+					yield break;
+				}  
+				yield return null;
+			}
+		}
 
         void OnGUI()
         {

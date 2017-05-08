@@ -15,7 +15,7 @@ namespace Midgaard
 
             for (int i = 0; i < npcProxys.Length; i ++)
             {
-                if(npcProxys[i].name == "shrineProxyNPC")
+                if(npcProxys[i].name == "shrine_Proxy")
                 {
                     npcProxys[i].target = this;
                     npcProxys[i].Set_Settings();
