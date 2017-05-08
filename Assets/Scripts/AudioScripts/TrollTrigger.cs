@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TrollTrigger : MonoBehaviour {
 
+    bool triggered = false;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -16,12 +18,18 @@ public class TrollTrigger : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        StartCoroutine(Clip01());
-        StartCoroutine(Clip02());
-        StartCoroutine(Clip03());
-        StartCoroutine(Clip04());
-        StartCoroutine(Clip05());
-        StartCoroutine(Clip06());
+        if (!triggered)
+        {
+            StartCoroutine(Clip01());
+            triggered = true;
+            StartCoroutine(Clip02());
+            StartCoroutine(Clip03());
+            StartCoroutine(Clip04());
+            StartCoroutine(Clip05());
+            StartCoroutine(Clip06());
+
+            
+        }
     }
 
     IEnumerator Clip01() {
