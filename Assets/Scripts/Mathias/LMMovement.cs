@@ -18,8 +18,8 @@ public class LMMovement : MonoBehaviour {
 	private float journeyLength;
 
 	void Start() {
-		startMarker = transform.position;
-		origin = transform.position;
+		startMarker = transform.localPosition;
+		origin = transform.localPosition;
 		endMarker = new Vector3 (origin.x + Random.Range (0f, dist), origin.y + Random.Range (0f, hight), origin.z + Random.Range (0f, dist));
 		startTime = Time.time;
 		journeyLength = Vector3.Distance(startMarker, endMarker);
@@ -34,9 +34,9 @@ public class LMMovement : MonoBehaviour {
 		speedOfmove ();
 		float distCovered = (Time.time - startTime) * speed;
 		float fracJourney = distCovered / journeyLength;
-		transform.position = Vector3.Slerp(startMarker, endMarker, fracJourney);
+		transform.localPosition = Vector3.Slerp(startMarker, endMarker, fracJourney);
 		if (fracJourney > 0.9) {
-			startMarker = transform.position;
+			startMarker = transform.localPosition;
 			endMarker = new Vector3 (origin.x + Random.Range (0f, dist), origin.y + Random.Range (0f,hight), origin.z + Random.Range (0f, dist));
 			journeyLength = Vector3.Distance(startMarker, endMarker);
 			startTime = Time.time;
