@@ -2,21 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KennaForestTrigger02 : MonoBehaviour {
+public class KennaDangerTrigger : MonoBehaviour
+{
 
     bool triggered = false;
     bool activeGui = true;
-    private GUIStyle guiStyle = new GUIStyle();
+    GUIStyle guiStyle = new GUIStyle();
 
     // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -24,7 +27,7 @@ public class KennaForestTrigger02 : MonoBehaviour {
         {
 
             triggered = true;
-            GameObject.Find("kenna").gameObject.GetComponent<KennaTalk>().source.clip = GameObject.Find("kenna").gameObject.GetComponent<KennaTalk>().clips[5];
+            GameObject.Find("kenna").gameObject.GetComponent<KennaTalk>().source.clip = GameObject.Find("kenna").gameObject.GetComponent<KennaTalk>().clips[6];
             GameObject.Find("kenna").gameObject.GetComponent<AudioSource>().Play();
             StartCoroutine(guiTime());
         }
@@ -37,7 +40,7 @@ public class KennaForestTrigger02 : MonoBehaviour {
             //Debug.Log("You're goddamn right");
             guiStyle.fontSize = 35;
             guiStyle.normal.textColor = Color.white;
-            GUI.Label(new Rect(Screen.width / 4.5f, Screen.height / 1.3f, 10, 10), "“Nornabaugur (elfring). Where the ancient elves used to dance.. \n The myths say it is a portal to the realm of the elves. \n You should not step into the ring now. Time is nigh and the elves are not kind to outsiders”", guiStyle);
+            GUI.Label(new Rect(Screen.width / 3.5f, Screen.height / 1.2f, 10, 10), "Watch out, danger is close..", guiStyle);
         }
     }
 
@@ -50,4 +53,5 @@ public class KennaForestTrigger02 : MonoBehaviour {
         }
         activeGui = false;
     }
+
 }

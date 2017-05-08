@@ -51,6 +51,9 @@ namespace Midgaard
         private float lastMainEventTimestamp;
         private float timeSinceEvent;
         private Interact[] interactables;
+        bool triggered = false;
+        bool activeGui = true;
+        private GUIStyle guiStyle = new GUIStyle();
 
         public Transform player;
         private bool timedinteract = false;
@@ -103,6 +106,14 @@ namespace Midgaard
                 {
                     interact.onInteracted -= On_Spawned_Time_Events;
                 }
+            }
+
+            foreach (StorySegment segment in storySegments) {
+                if (segment.mainEvent.Equals(interact)) {
+
+                    segment.isTimed = true;
+                }
+
             }
             
             StartCoroutine(WaitForSpawn());
@@ -204,7 +215,12 @@ namespace Midgaard
                 {
                     FindObjectOfType<shrineNPC>().OnLoad();
                     spawn.Add(FindObjectOfType<shrineNPC>());
+                    triggered = true;
+                    GameObject.Find("kenna").gameObject.GetComponent<KennaTalk>().source.clip = GameObject.Find("kenna").gameObject.GetComponent<KennaTalk>().clips[2];
+                    GameObject.Find("kenna").gameObject.GetComponent<AudioSource>().Play();
+                    StartCoroutine(guiTime());
                     spawn[0].onInteracted += On_Interact_Finished;
+               
                     yield break;
 
                 }
@@ -213,6 +229,27 @@ namespace Midgaard
             
                 
         }
-        
+
+        void OnGUI()
+        {
+            if (triggered && activeGui)
+            {
+                //Debug.Log("You're goddamn right");
+                guiStyle.fontSize = 35;
+                guiStyle.normal.textColor = Color.white;
+                GUI.Label(new Rect(Screen.width / 4.2f, Screen.height / 1.2f, 500, 500), "I can feel a magical presence nearby.. ", guiStyle);
+            }
+        }
+
+        IEnumerator guiTime()
+        {
+            var source = GameObject.Find("kenna").gameObject.GetComponent<AudioSource>();
+            while (source.isPlaying)
+            {
+                yield return new WaitForSeconds(1.0f);
+            }
+            activeGui = false;
+        }
+
     }
 }
