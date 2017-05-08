@@ -239,8 +239,8 @@ namespace Midgaard
 			var temp = FindObjectOfType<shrineNPC>();
 			yield return new WaitForSeconds(2);
 			while (!temp.interacted) {
-				if (Vector3.Distance (player.position, FindObjectOfType<shrineNPC> ().gameObject.transform.position) > 10) {
-					spawn.Remove (FindObjectOfType<shrineNPC>());
+				if (Vector3.Distance (player.position, temp.transform.position) > 10) {
+					spawn.Remove (temp);
 					StartCoroutine (WaitForSpawn ());
 					yield break;
 				}  
