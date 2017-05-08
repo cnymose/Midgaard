@@ -5,7 +5,7 @@ using System.Linq;
 
     public class TerrainSpawnManager : MonoBehaviour
     {
-        public int currentArea = 0;
+        public int nextArea = 0;
         
         public List<GameObject> areas;
         private PlayerMovement pm;
@@ -51,11 +51,11 @@ using System.Linq;
                     areas.Remove(currentPiece.gameObject);
                     
                     if(areas.Contains(currentPiece.gameObject))
-                    currentArea++;
+                    nextArea++;
                 
                 if (previousExit != null && !areas.Contains(currentPiece.gameObject))
                     previousExit.transform.gameObject.SetActive(false);
-                    Debug.Log("Current Area " + currentArea);
+                    Debug.Log("Current Area " + nextArea);
                    // lockedPiece.Add(currentPiece);
 
                     exits[0] = currentPiece.transform.FindChild("Exit " + 1).gameObject;
@@ -117,7 +117,7 @@ using System.Linq;
         public void spawnArea(GameObject exit)
         {
           
-            var area = areas[currentArea];
+            var area = areas[nextArea];
             var rotation = area.transform.rotation;
             var temp = exit;
             area.transform.rotation = previousPiece.transform.rotation;
