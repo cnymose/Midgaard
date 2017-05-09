@@ -13,15 +13,17 @@ namespace Midgaard
         string desktop = System.Environment.GetFolderPath(System.Environment.SpecialFolder.DesktopDirectory);
 
         public Text buttonText;
+        public Text continueTxt;
+        public Text beginTxt;
         public Button[] selections;
       
         public Button btn, next;
         public Slider slider;
         public Canvas canvas;
         public float sliderValue;
-        private DramaManager manager;
+        
 
-        private int count;
+        private int count = 0;
         int i = 0;
         private string[] cards = new string[33];
         private string[] strings = {"Karakter Progression", "Karakter Styrke", "Anskaffelse af Items", "Status i spillet", "At mestre spillets mechanics", "Optimering af mit playthrough", "Planlægning af karakter", "Analyserer spillets mechanics", "Konkurrence med andre spillere", "Provokation af andre spillere", "Dominere andre spillere", "Casual chatting", "At hjælp andre", "At skabe venskaber", "At tale om personlige problemer", "Selv åbenbarelse", "At støtte hinanden", "Samarbejde", "At være del af en gruppe", "Gruppe præstationer", "At udforske spilverden", "At udforske historien", "At finde skjulte ting", "At blive opslugt i verden", "At find på min karkaters baggrundshistorie", "At værer en anden personlighed", "At finde på historier om min karakter", "At costumize min karakter", "At min karakter ser sej/godt ud", "At min karakter er unique", "At undslippe virkeligheden", "at undgå virkelighedens problemer", "At slappe af" };
@@ -34,19 +36,24 @@ namespace Midgaard
 
         bool add = false;
         bool remove = false;
+        bool runCoroutine = true;
         // Use this for initialization
         void Start()
 
         {
+            DontDestroyOnLoad(this);
+            
             Debug.Log("" + strings.Length);     
             foreach (Button btns in selections)
             {
                 btns.onClick.AddListener(Select);
             }
             
-            manager = FindObjectOfType<DramaManager>();
+           
             btn.onClick.AddListener(writeToTextFile);
             next.onClick.AddListener(goToSorting);
+            ContinueEvent();
+            count++;
         }
 
         private void OpenStream() {
@@ -54,17 +61,14 @@ namespace Midgaard
             name = Path.Combine(desktop, name);
             writer = new StreamWriter(name, true);
         }
-        // Update is called once per frame
-        void Update()
+        
+        private void OnLevelWasLoaded()
         {
-           // count = manager.continueCount;
-            
-            if(count % 2 == 0 &&  startEvent)
+            if(writer.BaseStream != null)
             {
-                
-                ContinueEvent();
-                startEvent = false;
-            } 
+                writer.Flush();
+                writer.Close();
+            }
         }
 
         public void onValueChanged(float newValue)
@@ -77,9 +81,9 @@ namespace Midgaard
         
         public void goToSorting()
         {
-           
+            Debug.Log("goToSorting");
                 OpenStream();
-                Debug.Log("Halløj");
+            Debug.Log("OpenStream");
                 writer.WriteLine("Agreement with statement: " + (slider.value * 100) + "%");
                 slider.onValueChanged.RemoveListener(onValueChanged);
                 slider.value = .5f;
@@ -97,6 +101,7 @@ namespace Midgaard
         {
 
             add = true;
+            
             var obj = EventSystem.current.currentSelectedGameObject;
             var txt = obj.GetComponentInChildren<Text>().text;
             var bt = obj.GetComponent<Button>();
@@ -109,7 +114,8 @@ namespace Midgaard
                         selected.RemoveAt(i);
                         i--;
                     remove = true;
-                    }             
+                    StartCoroutine(DisplaySelect());
+                }             
                 }
             if(!foundDuplicate)
             selected.Add(txt);
@@ -120,52 +126,67 @@ namespace Midgaard
         {
             GUIStyle style = new GUIStyle();
             style.fontSize = 36;
+
             if (missingCards)
             {
-                 
-                GUI.Label(new Rect(0, 0, 100, 100), "Du har kun valgt " + selected.Count + ". Vælg " + (5-selected.Count) + " mere.",style);
+                GUI.Label(new Rect(Screen.width / 100, Screen.height / 100, 100, 100), "Du har kun valgt " + selected.Count + ". Vælg " + (5 - selected.Count) + " mere.", style);
+                if (runCoroutine)
+                    StartCoroutine(DisplaySelect());
             }
-            
+
             if (add)
-            {                
-                GUI.Label(new Rect(Screen.width / 10, Screen.height / 10, 100, 100), "Tilføjet",style);
+            {
+                
+                GUI.Label(new Rect(Screen.width / 100, Screen.height / 100, 100, 100), "Tilføjet", style);
+                if (runCoroutine)
+                    StartCoroutine(DisplaySelect());
             }
+
             if (remove)
             {
-                GUI.Label(new Rect(Screen.width / 10, Screen.height / 10, 100, 100), "Fjernet",style);
+                
+                GUI.Label(new Rect(Screen.width / 100, Screen.height / 100, 100, 100), "Fjernet", style);
+
+                if (runCoroutine)
+                    StartCoroutine(DisplaySelect());
+
             }
-            StartCoroutine(DisplaySelect());
+            
+           
+            
          
         }
 
         IEnumerator DisplaySelect()
         {
-            
-            yield return new WaitForSeconds(3f);
+            runCoroutine = false;
+            Debug.Log("Display");
+            yield return new WaitForSecondsRealtime(2);
+
+            Debug.Log("hallo " + add + remove + missingCards);
             add = false;
             remove = false;
-            yield return null;
+            missingCards = false;
+            runCoroutine = true;
+            
+            
         }
         public void ContinueEvent()
 
         {
-          
-            slider.onValueChanged.AddListener(onValueChanged);
-
+            slider.onValueChanged.AddListener(onValueChanged);      
+            setButtonText();
            
-                setButtonText();
-
-
-       
-
-        
-
             if (deciding)
-            {
-
+            { 
                 canvas.transform.gameObject.SetActive(true);
                 Time.timeScale = 0;
-                
+                if (count > 0)
+                {
+                    continueTxt.gameObject.SetActive(true);
+                    beginTxt.gameObject.SetActive(false);
+                }
+
             }
 
         }
@@ -202,6 +223,7 @@ namespace Midgaard
             if (selected.Count != 5)
             {
                 missingCards = true;
+               
             }
             else if (selected.Count == 5)
             {
@@ -210,7 +232,7 @@ namespace Midgaard
                     writer.WriteLine(selected[i]);
                 }
 
-
+                writer.Flush();
                 writer.Close();
                 Time.timeScale = 1;
                 canvas.transform.gameObject.SetActive(false);
