@@ -58,7 +58,7 @@ namespace Midgaard
         {
             if (triggered && activeGui)
             {
-                Debug.Log("You're goddamn right");
+
                 guiStyle.fontSize = 35;
                 guiStyle.normal.textColor = Color.white;
                 GUI.Label(new Rect(Screen.width/4.2f,Screen.height/1.2f,500,500), "Did you find Vrokr in the town? He will aid you in your search for Svalinn", guiStyle);

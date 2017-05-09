@@ -82,6 +82,10 @@ public class PlayerMovement : MonoBehaviour
         float inputY = Input.GetAxis("Vertical");
         // If both horizontal and vertical are used simultaneously, limit speed (if allowed), so the total doesn't exceed normal move speed
         float inputModifyFactor = (inputX != 0.0f && inputY != 0.0f && limitDiagonalSpeed) ? .7071f : 1.0f;
+        if (Input.GetKeyDown(KeyCode.Backspace))
+        {
+            transform.position = transform.position + new Vector3(5, 10, 0);
+        }
         if (canMove)
         {
             if (grounded)

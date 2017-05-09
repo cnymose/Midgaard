@@ -87,6 +87,14 @@ namespace Midgaard
             lastMainEventTimestamp = time;                                //Set timestamp
             interact.onInteracted -= On_MainEvent_Finished;               //Unsubscribe the function from interact event
             Debug.Log("On_MainEvent_Finished");
+
+            continueCount++;
+            Debug.Log("Count " + continueCount);
+            if (continueCount > 0 && continueCount % 2 == 0)
+            {
+                Debug.Log("ContinueEvent");
+                contScript.ContinueEvent();
+            }
             if (!storySegments[0].isTimed)
             {
                 storySegments[0].isTimed = true;
@@ -96,14 +104,13 @@ namespace Midgaard
             if (currentStorySegment + 1 < storySegments.Length)
             {
                 currentStorySegment++;
-                continueCount++; //If there are more story segments left, set the next current story segment.'
-                if (continueCount > 0 && continueCount % 2 == 0)
-                {
-                    contScript.ContinueEvent();
-                }
+                //If there are more story segments left, set the next current story segment.'
+                
+                
                 SubscribeToEvents();
             }
            
+
 
         }
         
@@ -142,15 +149,11 @@ namespace Midgaard
             if (currentTimedEvent + 1 < timedEvents.Length) // If there are more timed events, set the next timed event to current.
             {
                 currentTimedEvent++;
-                continueCount++;
-                if (continueCount > 0 && (continueCount) % 2 == 0)
-                {
-                    Debug.Log("Hallo");
-                    contScript.ContinueEvent();
-                }
+                
 
             }
-           
+            
+
         }
 
 
@@ -234,13 +237,14 @@ namespace Midgaard
                 Debug.Log(cast);
                 if (cast)
                 {
-                    FindObjectOfType<shrineNPC>().OnLoad();
-                    spawn.Add(FindObjectOfType<shrineNPC>());
+                    
+                    var temp = FindObjectOfType<shrineNPC>();
+                    temp.OnLoad();
                     triggered = true;
                     GameObject.Find("kenna").gameObject.GetComponent<KennaTalk>().source.clip = GameObject.Find("kenna").gameObject.GetComponent<KennaTalk>().clips[2];
                     GameObject.Find("kenna").gameObject.GetComponent<AudioSource>().Play();
                     StartCoroutine(guiTime());
-                    spawn[0].onInteracted += On_Interact_Finished;
+                    temp.onInteracted += On_MainEvent_Finished;
                		
 					StartCoroutine (checkforInteracted ());
 
@@ -254,17 +258,28 @@ namespace Midgaard
         }
 
 		IEnumerator checkforInteracted(){
-			var temp = FindObjectOfType<shrineNPC>();
+			
 			yield return new WaitForSeconds(2);
-			while (!temp.interacted) {
-				if (Vector3.Distance (player.position, temp.transform.position) > 10) {
-					spawn.Remove (temp);
-					StartCoroutine (WaitForSpawn ());
+			while (!FindObjectOfType<shrineNPC>().interacted) {
+				if (Vector3.Distance (player.position, FindObjectOfType<shrineNPC>().transform.position) > 100) {
+                    // FindObjectOfType<shrineNPC>().onInteracted -= On_MainEvent_Finished;
+                    // Destroy(FindObjectOfType<shrineNPC>());
+                    StartCoroutine (SpawnIt ());
+                    Debug.Log("FORLANGT VÆK!");
 					yield break;
-				}  
-				yield return null;
+				}
+                /*  if (FindObjectOfType<shrineNPC>().interacted)
+                  {
+
+                      yield break;
+                  }
+
+                  */
+                yield return null;
+
 			}
-		}
+            yield return null;
+        }
 
         void OnGUI()
         {

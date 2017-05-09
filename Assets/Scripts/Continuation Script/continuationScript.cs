@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 namespace Midgaard
 {
@@ -27,7 +28,7 @@ namespace Midgaard
         int i = 0;
         private string[] cards = new string[33];
         private string[] strings = {"Karakter Progression", "Karakter Styrke", "Anskaffelse af Items", "Status i spillet", "At mestre spillets mechanics", "Optimering af mit playthrough", "Planlægning af karakter", "Analyserer spillets mechanics", "Konkurrence med andre spillere", "Provokation af andre spillere", "Dominere andre spillere", "Casual chatting", "At hjælp andre", "At skabe venskaber", "At tale om personlige problemer", "Selv åbenbarelse", "At støtte hinanden", "Samarbejde", "At være del af en gruppe", "Gruppe præstationer", "At udforske spilverden", "At udforske historien", "At finde skjulte ting", "At blive opslugt i verden", "At find på min karkaters baggrundshistorie", "At værer en anden personlighed", "At finde på historier om min karakter", "At costumize min karakter", "At min karakter ser sej/godt ud", "At min karakter er unique", "At undslippe virkeligheden", "at undgå virkelighedens problemer", "At slappe af" };
-        private List<string> selected = new List<string>();
+        private List<string> selected;
         private List<string> added = new List<string>();
         private bool deciding = true;
         private bool eventStarted = false;
@@ -62,14 +63,14 @@ namespace Midgaard
             writer = new StreamWriter(name, true);
         }
         
-        private void OnLevelWasLoaded()
+       /* private void OnLevelWasLoaded()
         {
             if(writer.BaseStream != null)
             {
                 writer.Flush();
                 writer.Close();
             }
-        }
+        }*/
 
         public void onValueChanged(float newValue)
         {
@@ -117,7 +118,7 @@ namespace Midgaard
                     StartCoroutine(DisplaySelect());
                 }             
                 }
-            if (!foundDuplicate)
+            if (!foundDuplicate && selected.Count != 5)
             {
                 add = true;
                 selected.Add(txt);
@@ -178,16 +179,20 @@ namespace Midgaard
         public void ContinueEvent()
 
         {
-           
+
+            selected = new List<string>();
+            
             slider.onValueChanged.AddListener(onValueChanged);      
             setButtonText();
             eventStarted = true;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             if (deciding)
-            { 
+            {
+               
                 canvas.transform.gameObject.SetActive(true);
                 Time.timeScale = 0;
+                onValueChanged(.5f);
                 if (count > 0)
                 {
                     continueTxt.gameObject.SetActive(true);
@@ -238,17 +243,24 @@ namespace Midgaard
                 {
                     writer.WriteLine(selected[i]);
                 }
-
-                writer.Flush();
-                writer.Close();
+                canvas.transform.Find("ButtonHolder").gameObject.SetActive(false);
+                canvas.transform.Find("SliderHolder").gameObject.SetActive(true);
+                canvas.transform.gameObject.SetActive(false);
+              
                 Time.timeScale = 1;
                 eventStarted = false;
                 Cursor.lockState = CursorLockMode.Locked;
-                canvas.transform.gameObject.SetActive(false);
-                transform.Find("ButtonHolder").gameObject.SetActive(false);
-                transform.Find("SliderHolder").gameObject.SetActive(true);
+                
+                writer.Flush();
+                writer.Close();
 
+                if (SceneManager.GetActiveScene().buildIndex == 0)
+                {
+                    FindObjectOfType<Camera>().GetComponent<PlayMovie>().Launch();
+                }
             }
+           
+            
            
         }
     }
