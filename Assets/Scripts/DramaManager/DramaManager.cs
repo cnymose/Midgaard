@@ -40,10 +40,11 @@ namespace Midgaard
         public SpawnedEvents[] spawnedEvents;
         public StorySegment[] storySegments;
         public List<NPC> spawn;
-        //private continuationScript contScript;
+        private continuationScript contScript;
         
 
         private int currentTimedEvent = 0;
+        private int continueCount = 0;
         private int currentStorySegment = 0;
         private int currentMinorEvent = 0;
         private int currentSpawnedEvent = 0;
@@ -61,7 +62,8 @@ namespace Midgaard
      
         void Start()
         {
-            //contScript = FindObjectOfType<continuationScript>();    
+            contScript = FindObjectOfType<continuationScript>();
+            Debug.Log("" + contScript.transform.name);
             player = FindObjectOfType<PlayerMovement>().transform;            
             SubscribeToEvents();
             SubscribeMainEvents();
@@ -93,14 +95,16 @@ namespace Midgaard
 
             if (currentStorySegment + 1 < storySegments.Length)
             {
-                currentStorySegment++;                                    //If there are more story segments left, set the next current story segment.'
+                currentStorySegment++;
+                continueCount++; //If there are more story segments left, set the next current story segment.'
+                if (continueCount > 0 && continueCount % 2 == 0)
+                {
+                    contScript.ContinueEvent();
+                }
                 SubscribeToEvents();
             }
-            if(currentStorySegment > 0 && currentStorySegment % 2 == 0)
-            {
-               // contScript.ContinueEvent();
-            }
-            
+           
+
         }
         
 
@@ -138,6 +142,13 @@ namespace Midgaard
             if (currentTimedEvent + 1 < timedEvents.Length) // If there are more timed events, set the next timed event to current.
             {
                 currentTimedEvent++;
+                continueCount++;
+                if (continueCount > 0 && (continueCount) % 2 == 0)
+                {
+                    Debug.Log("Hallo");
+                    contScript.ContinueEvent();
+                }
+
             }
            
         }

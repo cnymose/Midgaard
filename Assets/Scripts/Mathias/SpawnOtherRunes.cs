@@ -17,7 +17,7 @@ public class SpawnOtherRunes : MonoBehaviour {
 	{
 		RaycastHit hit;
 		if (Physics.Raycast(transform.position, -Vector3.up, out hit)){
-			Debug.Log (hit.transform.name);
+
 			if(hit.transform.parent != null && hit.transform.parent.parent != null){
 				if( hit.transform.parent.parent.gameObject.name == "Crossroads" && blob.name == "Rune01"){
 					if (!bum) {

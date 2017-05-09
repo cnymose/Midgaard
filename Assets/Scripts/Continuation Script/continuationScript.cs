@@ -30,7 +30,7 @@ namespace Midgaard
         private List<string> selected = new List<string>();
         private List<string> added = new List<string>();
         private bool deciding = true;
-        private bool startEvent = true;
+        private bool eventStarted = false;
         private bool missingCards = false;
         private float percentage = 0f;
 
@@ -52,7 +52,7 @@ namespace Midgaard
            
             btn.onClick.AddListener(writeToTextFile);
             next.onClick.AddListener(goToSorting);
-            //ContinueEvent();
+            ContinueEvent();
             count++;
         }
 
@@ -61,7 +61,7 @@ namespace Midgaard
             name = Path.Combine(desktop, name);
             writer = new StreamWriter(name, true);
         }
-        /*
+        
         private void OnLevelWasLoaded()
         {
             if(writer.BaseStream != null)
@@ -69,7 +69,7 @@ namespace Midgaard
                 writer.Flush();
                 writer.Close();
             }
-        }*/
+        }
 
         public void onValueChanged(float newValue)
         {
@@ -178,9 +178,12 @@ namespace Midgaard
         public void ContinueEvent()
 
         {
+           
             slider.onValueChanged.AddListener(onValueChanged);      
             setButtonText();
-           
+            eventStarted = true;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
             if (deciding)
             { 
                 canvas.transform.gameObject.SetActive(true);
@@ -239,7 +242,11 @@ namespace Midgaard
                 writer.Flush();
                 writer.Close();
                 Time.timeScale = 1;
+                eventStarted = false;
+                Cursor.lockState = CursorLockMode.Locked;
                 canvas.transform.gameObject.SetActive(false);
+                transform.Find("ButtonHolder").gameObject.SetActive(false);
+                transform.Find("SliderHolder").gameObject.SetActive(true);
 
             }
            

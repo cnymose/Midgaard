@@ -47,7 +47,7 @@ using UnityEngine;
                 Vector3 centerPoint = new Vector3(hit.point.x, hit.point.y + (heightOfObject / 2), hit.point.z);
                 if (hit.transform.gameObject.tag == "Spawn Area")
                 {
-				Debug.Log("" + hit.transform.parent.parent);
+				
                     Destroy(lastPlaced);
                     GameObject box = (GameObject)Instantiate(blob, centerPoint, transform.rotation);
                     lastPlaced = box;
@@ -102,7 +102,7 @@ using UnityEngine;
                 }
                 else
                 {
-                Debug.Log("" + hit.transform.name);
+             
                     Destroy(lastPlaced);
                     return false;
                 }
