@@ -40,7 +40,7 @@ namespace Midgaard
         public SpawnedEvents[] spawnedEvents;
         public StorySegment[] storySegments;
         public List<NPC> spawn;
-        private continuationScript contScript;
+        //private continuationScript contScript;
         
 
         private int currentTimedEvent = 0;
@@ -61,7 +61,7 @@ namespace Midgaard
      
         void Start()
         {
-            contScript = FindObjectOfType<continuationScript>();    
+            //contScript = FindObjectOfType<continuationScript>();    
             player = FindObjectOfType<PlayerMovement>().transform;            
             SubscribeToEvents();
             SubscribeMainEvents();
@@ -98,7 +98,7 @@ namespace Midgaard
             }
             if(currentStorySegment > 0 && currentStorySegment % 2 == 0)
             {
-                contScript.ContinueEvent();
+               // contScript.ContinueEvent();
             }
             
         }

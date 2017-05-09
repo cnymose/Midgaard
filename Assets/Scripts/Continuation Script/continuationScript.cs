@@ -52,7 +52,7 @@ namespace Midgaard
            
             btn.onClick.AddListener(writeToTextFile);
             next.onClick.AddListener(goToSorting);
-            ContinueEvent();
+            //ContinueEvent();
             count++;
         }
 
@@ -61,7 +61,7 @@ namespace Midgaard
             name = Path.Combine(desktop, name);
             writer = new StreamWriter(name, true);
         }
-        
+        /*
         private void OnLevelWasLoaded()
         {
             if(writer.BaseStream != null)
@@ -69,7 +69,7 @@ namespace Midgaard
                 writer.Flush();
                 writer.Close();
             }
-        }
+        }*/
 
         public void onValueChanged(float newValue)
         {
@@ -100,7 +100,7 @@ namespace Midgaard
         public void Select()
         {
 
-            add = true;
+           
             
             var obj = EventSystem.current.currentSelectedGameObject;
             var txt = obj.GetComponentInChildren<Text>().text;
@@ -117,8 +117,11 @@ namespace Midgaard
                     StartCoroutine(DisplaySelect());
                 }             
                 }
-            if(!foundDuplicate)
-            selected.Add(txt);
+            if (!foundDuplicate)
+            {
+                add = true;
+                selected.Add(txt);
+            }
 
             Debug.Log(txt);
         }
@@ -129,7 +132,7 @@ namespace Midgaard
 
             if (missingCards)
             {
-                GUI.Label(new Rect(Screen.width / 100, Screen.height / 100, 100, 100), "Du har kun valgt " + selected.Count + ". Vælg " + (5 - selected.Count) + " mere.", style);
+                GUI.Label(new Rect(Screen.width / 10, Screen.height / 3, 100, 100), "Du har kun valgt " + selected.Count + ". Vælg " + (5 - selected.Count) + " mere.", style);
                 if (runCoroutine)
                     StartCoroutine(DisplaySelect());
             }
@@ -137,7 +140,7 @@ namespace Midgaard
             if (add)
             {
                 
-                GUI.Label(new Rect(Screen.width / 100, Screen.height / 100, 100, 100), "Tilføjet", style);
+                GUI.Label(new Rect(Screen.width / 10, Screen.height / 3 , 100, 100), "Tilføjet", style);
                 if (runCoroutine)
                     StartCoroutine(DisplaySelect());
             }
@@ -145,7 +148,7 @@ namespace Midgaard
             if (remove)
             {
                 
-                GUI.Label(new Rect(Screen.width / 100, Screen.height / 100, 100, 100), "Fjernet", style);
+                GUI.Label(new Rect(Screen.width / 10, Screen.height / 3 , 100, 100), "Fjernet", style);
 
                 if (runCoroutine)
                     StartCoroutine(DisplaySelect());
@@ -168,6 +171,7 @@ namespace Midgaard
             remove = false;
             missingCards = false;
             runCoroutine = true;
+            yield return null;
             
             
         }

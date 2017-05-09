@@ -33,8 +33,7 @@ public class CameraRotation : MonoBehaviour
 
     void Update()
     {
-        while (Time.timeScale == 1)
-        {
+      
             if (axes == RotationAxes.MouseXAndY)
             {
                 float rotationX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensitivityX;
@@ -55,7 +54,7 @@ public class CameraRotation : MonoBehaviour
 
                 transform.localEulerAngles = new Vector3(-rotationY, transform.localEulerAngles.y, 0);
             }
-        }
+        
     }
 
     void Start()

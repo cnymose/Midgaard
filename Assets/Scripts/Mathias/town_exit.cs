@@ -43,7 +43,7 @@ namespace Midgaard
                 {
 
                     triggered = true;
-                    
+                   
                     
                     GameObject.Find("kenna").gameObject.GetComponent<KennaTalk>().source.clip = GameObject.Find("kenna").gameObject.GetComponent<KennaTalk>().clips[1];
                     GameObject.Find("kenna").gameObject.GetComponent<AudioSource>().Play();
