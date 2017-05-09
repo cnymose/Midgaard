@@ -14,7 +14,9 @@ using UnityEngine;
         // Update is called once per frame
         void Update()
         {
-        
+			if (blob.name != "Shrine") {
+			bool bum = raycastStart();
+			}
         }
 
         public float distToSpawn = 25f;
@@ -45,7 +47,7 @@ using UnityEngine;
                 Vector3 centerPoint = new Vector3(hit.point.x, hit.point.y + (heightOfObject / 2), hit.point.z);
                 if (hit.transform.gameObject.tag == "Spawn Area")
                 {
-                Debug.Log("" + hit.transform.tag);
+				Debug.Log("" + hit.transform.parent.parent);
                     Destroy(lastPlaced);
                     GameObject box = (GameObject)Instantiate(blob, centerPoint, transform.rotation);
                     lastPlaced = box;
