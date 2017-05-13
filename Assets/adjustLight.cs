@@ -5,6 +5,7 @@ using UnityEngine;
 public class adjustLight : MonoBehaviour {
     public Light spotlight;
     public Light dirLight;
+    public GameObject canvas;
 	// Use this for initialization
 	void Start () {
         
@@ -12,11 +13,21 @@ public class adjustLight : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKey(KeyCode.Alpha3))
+
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            canvas.SetActive(true);
+        }
+        else
+        {
+            canvas.SetActive(false);
+        }
+
+        if (Input.GetKey(KeyCode.Alpha1))
         {
             spotlight.intensity -= 0.1f;
         }
-        if (Input.GetKey(KeyCode.Alpha4))
+        if (Input.GetKey(KeyCode.Alpha2))
         {
             spotlight.intensity += 0.1f;
         }
@@ -28,11 +39,11 @@ public class adjustLight : MonoBehaviour {
         {
             dirLight.enabled = false;
         }
-        if (Input.GetKey(KeyCode.Alpha1))
+        if (Input.GetKey(KeyCode.Alpha4))
         {
             dirLight.intensity += 0.1f;
         }
-        if (Input.GetKey(KeyCode.Alpha2))
+        if (Input.GetKey(KeyCode.Alpha3))
         {
             dirLight.intensity -= 0.1f;
         }

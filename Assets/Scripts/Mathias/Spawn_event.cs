@@ -45,7 +45,7 @@ using UnityEngine;
             if (Physics.Raycast(starHere, -Vector3.up, out hit))
             {
                 Vector3 centerPoint = new Vector3(hit.point.x, hit.point.y + (heightOfObject / 2), hit.point.z);
-                if (hit.transform.gameObject.tag == "Spawn Area")
+                if (hit.transform.gameObject.tag == "Spawn Area" && hit.transform.gameObject.transform.parent.parent.name == "Bog_all")
                 {
 				
                     Destroy(lastPlaced);

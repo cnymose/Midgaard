@@ -9,10 +9,15 @@ namespace Midgaard {
         // Use this for initialization
         public string SceneName;
         public bool playing = true;
+
+        public MovieTexture myMovie;
+        public AudioSource aud;
+
         public void Awake()
         {
             if (SceneManager.GetActiveScene().buildIndex == 2)
             {
+                aud = GetComponent<AudioSource>();
                 myMovie.Play();
                 aud.Play();
                 playing = false;
@@ -20,6 +25,7 @@ namespace Midgaard {
             }
         }
         public void Launch() {
+            aud = GetComponent<AudioSource>();
             myMovie.Play();
             aud.Play();
             playing = false;
@@ -45,8 +51,7 @@ namespace Midgaard {
         }
 
 
-        public MovieTexture myMovie;
-        public AudioSource aud;
+    
 
         private IEnumerator Wait(float duration)
         {
