@@ -63,7 +63,7 @@ namespace Midgaard
         void Start()
         {
             contScript = FindObjectOfType<continuationScript>();
-            Debug.Log("" + contScript.transform.name);
+            //Debug.Log("" + contScript.transform.name);
             player = FindObjectOfType<PlayerMovement>().transform;            
             SubscribeToEvents();
             SubscribeMainEvents();

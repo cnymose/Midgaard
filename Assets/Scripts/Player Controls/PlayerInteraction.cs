@@ -26,6 +26,7 @@ namespace Midgaard
             RaycastHit hit;
             if (Physics.Raycast(cam.position, cam.forward, out hit))
             { //Raycast forward
+                //transform.GetChild(0).GetComponent<DepthOfField>();
                 if (hit.transform.gameObject.GetComponent<Interact>() && Vector3.Distance(transform.position, hit.transform.position) < 5)                              //If we hit an object with the "interact" component on it
                 {
                     target = hit.transform.gameObject.GetComponent<Interact>();                       //Set that as out target

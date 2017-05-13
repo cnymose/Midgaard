@@ -41,9 +41,9 @@ namespace Midgaard
 
         void Update()
         {
-            check = contScript.canvas.gameObject.activeInHierarchy;
-            if (!check)
-            {
+            //check = contScript.canvas.gameObject.activeInHierarchy;
+            //if (!check)
+            //{
                 if (axes == RotationAxes.MouseXAndY)
                 {
                     float rotationX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensitivityX;
@@ -64,7 +64,7 @@ namespace Midgaard
 
                     transform.localEulerAngles = new Vector3(-rotationY, transform.localEulerAngles.y, 0);
                 }
-            }
+            //}
 
         }
 
