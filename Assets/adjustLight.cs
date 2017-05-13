@@ -12,11 +12,11 @@ public class adjustLight : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKey(KeyCode.KeypadMinus))
+        if (Input.GetKey(KeyCode.Alpha3))
         {
             spotlight.intensity -= 0.1f;
         }
-        if (Input.GetKey(KeyCode.KeypadPlus))
+        if (Input.GetKey(KeyCode.Alpha4))
         {
             spotlight.intensity += 0.1f;
         }
