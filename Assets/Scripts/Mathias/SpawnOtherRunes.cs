@@ -26,7 +26,7 @@ namespace Midgaard {
                             
                         }
                         if (bum && Vector3.Distance(transform.position, lastPlaced.transform.position) > 50) {
-                           // bum = raycastStart();
+                            bum = raycastStart();
                         }
                     }
                     if (hit.transform.parent.parent.gameObject.name == "PolyEnvironment_Forest" && blob.name == "Rune02") {
@@ -34,7 +34,7 @@ namespace Midgaard {
                             bum = raycastStart();
                         }
                         if (bum && Vector3.Distance(transform.position, lastPlaced.transform.position) > 50) {
-                          //  bum = raycastStart();
+                            bum = raycastStart();
                         }
                     }
                     if (hit.transform.parent.parent.gameObject.name == "SnowForest" && blob.name == "Rune03") {
@@ -42,7 +42,7 @@ namespace Midgaard {
                             bum = raycastStart();
                         }
                         if (bum && Vector3.Distance(transform.position, lastPlaced.transform.position) > 50) {
-                         //   bum = raycastStart();
+                           bum = raycastStart();
                         }
                     }
                 }
@@ -77,36 +77,34 @@ namespace Midgaard {
                 Vector3 centerPoint = new Vector3(hit.point.x, hit.point.y + (heightOfObject / 2), hit.point.z);
                 if (hit.transform.gameObject.tag == "Spawn Area")
                 {
-                    Debug.Log("" + hit.transform.parent.parent);
                     Destroy(lastPlaced);
                     GameObject box = (GameObject)Instantiate(blob, centerPoint, transform.rotation);
                     lastPlaced = box;
                     bool shouldDestroy = false;
-                    for (int i = 0; i < box.transform.childCount; i++)
-                    {
+                    
                         RaycastHit childHit;
-                        box.transform.GetChild(i).transform.GetChild(0).gameObject.layer = 18;
+                        box.transform.gameObject.layer = 18;
 
                         int layerMask = 1 << 18;
                         layerMask = ~layerMask;
 
-                        if (Physics.Raycast(new Vector3(0, 20f, 0) + box.transform.GetChild(i).transform.position, -Vector3.up, out childHit, Mathf.Infinity, layerMask))
+                        if (Physics.Raycast(new Vector3(0, 20f, 0) + box.transform.transform.position, -Vector3.up, out childHit, Mathf.Infinity, layerMask))
                         {
 
                             if (childHit.transform.gameObject.tag == "Spawn Area" && Vector3.Angle(childHit.normal, blob.transform.up) < 30)
                             {
 
-                                box.transform.GetChild(i).transform.position = childHit.point;
-                                box.transform.GetChild(i).transform.rotation =
+                                box.transform.position = childHit.point;
+                                box.transform.rotation =
                                     Quaternion.FromToRotation(blob.transform.forward, new Vector3(childHit.point.x - transform.position.x, 0, childHit.point.z - transform.position.z)) *
-                                    blob.transform.GetChild(i).rotation *
+                                    //blob.transform.rotation *
                                     Quaternion.FromToRotation(blob.transform.up, childHit.normal);
                             }
                             else
                                 shouldDestroy = true;
                         }
 
-                    }
+                    
 
                     if (shouldDestroy == true)
                     {
@@ -117,7 +115,6 @@ namespace Midgaard {
                 }
                 else
                 {
-                    Debug.Log("" + hit.transform.name);
                     Destroy(lastPlaced);
                     return false;
                 }
