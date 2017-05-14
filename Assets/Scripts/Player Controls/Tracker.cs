@@ -9,11 +9,12 @@ public class Tracker : MonoBehaviour {
     string desktop = System.Environment.GetFolderPath(System.Environment.SpecialFolder.DesktopDirectory);
     // Use this for initialization
     void Start () {
-        
-        string name = System.DateTime.Now.ToString() +  ".txt";
-       
-        name = name.Replace('/', '_');
-        name = name.Replace(':', '-');
+
+        //string name = System.DateTime.Now.ToString() +  ".txt";
+
+        //name = name.Replace('/', '_');
+        //name = name.Replace(':', '-');
+        string name = "Tracker";
         name = System.IO.Path.Combine(desktop, name);
         writer = File.CreateText(name);
         
