@@ -40,6 +40,7 @@ namespace Midgaard
         public SpawnedEvents[] spawnedEvents;
         public StorySegment[] storySegments;
         public List<NPC> spawn;
+        public int CSS;
         private continuationScript contScript;
         
 
@@ -105,7 +106,7 @@ namespace Midgaard
             {
                 currentStorySegment++;
                 //If there are more story segments left, set the next current story segment.'
-                
+                CSS = currentStorySegment;
                 
                 SubscribeToEvents();
             }
