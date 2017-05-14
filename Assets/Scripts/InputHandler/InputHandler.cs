@@ -39,7 +39,7 @@ namespace Midgaard
 
         public static IEnumerator WaitForButtonDown(string button)
         { //This Coroutine waits for the input of a button with the argument being a string of the input button name.
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.1f);
             while (!Input.GetButtonDown(button))
             {
                 yield return null;

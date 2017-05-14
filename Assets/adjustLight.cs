@@ -23,14 +23,14 @@ public class adjustLight : MonoBehaviour {
             canvas.SetActive(false);
         }
 
-        if (Input.GetKey(KeyCode.Alpha1))
+        /*if (Input.GetKey(KeyCode.Alpha1))
         {
             spotlight.intensity -= 0.1f;
         }
         if (Input.GetKey(KeyCode.Alpha2))
         {
             spotlight.intensity += 0.1f;
-        }
+        }*/
         if (Input.GetKey(KeyCode.F1))
         {
             dirLight.enabled = true;
@@ -39,11 +39,11 @@ public class adjustLight : MonoBehaviour {
         {
             dirLight.enabled = false;
         }
-        if (Input.GetKey(KeyCode.Alpha4))
+        if (Input.GetKey(KeyCode.Alpha1))
         {
             dirLight.intensity += 0.1f;
         }
-        if (Input.GetKey(KeyCode.Alpha3))
+        if (Input.GetKey(KeyCode.Alpha2))
         {
             dirLight.intensity -= 0.1f;
         }
