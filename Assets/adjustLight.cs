@@ -41,11 +41,11 @@ public class adjustLight : MonoBehaviour {
         }
         if (Input.GetKey(KeyCode.Alpha1))
         {
-            dirLight.intensity += 0.1f;
+            dirLight.intensity += 0.01f;
         }
         if (Input.GetKey(KeyCode.Alpha2))
         {
-            dirLight.intensity -= 0.1f;
+            dirLight.intensity -= 0.01f;
         }
     }
 }

@@ -37,20 +37,18 @@ namespace Midgaard
 
         private void OnTriggerEnter(Collider other)
         {
-            for (int i = 0; i < SM.storySegments.Length; i++)
+
+            var vrokr = GameObject.Find("Vrokr").gameObject.GetComponent<vroklNPC>().interacted;
+
+            if (!vrokr && !triggered)
             {
-                if (SM.storySegments[i].mainEvent.name == "Vrokr" && !SM.storySegments[i].isTimed && SM.storySegments[i].mainEvent.transform.gameObject.activeInHierarchy && !triggered)
-                {
+                triggered = true;
 
-                    triggered = true;
-                   
-                    
-                    GameObject.Find("kenna").gameObject.GetComponent<KennaTalk>().source.clip = GameObject.Find("kenna").gameObject.GetComponent<KennaTalk>().clips[1];
-                    GameObject.Find("kenna").gameObject.GetComponent<AudioSource>().Play();
-                   
-                    StartCoroutine(guiTime());
 
-                }
+                GameObject.Find("kenna").gameObject.GetComponent<KennaTalk>().source.clip = GameObject.Find("kenna").gameObject.GetComponent<KennaTalk>().clips[1];
+                GameObject.Find("kenna").gameObject.GetComponent<AudioSource>().Play();
+
+                StartCoroutine(guiTime());
             }
         }
 

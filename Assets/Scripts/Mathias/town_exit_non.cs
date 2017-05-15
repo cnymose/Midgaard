@@ -35,27 +35,24 @@ public class town_exit_non : MonoBehaviour {
     }
 
 
-    private void OnTriggerEnter(Collider other)
-    {
-        for (int i = 0; i < SM.storySegments.Length; i++)
+        private void OnTriggerEnter(Collider other)
         {
-                
-            if (SM.CSS == 1 && !triggered)
-            {
 
+            var vrokr = GameObject.Find("Vrokr").gameObject.GetComponent<vroklNPC>().interacted;
+
+            if (!vrokr && !triggered)
+            {
                 triggered = true;
-                    Debug.Log(SM.CSS);
+
 
                 GameObject.Find("kenna").gameObject.GetComponent<KennaTalk>().source.clip = GameObject.Find("kenna").gameObject.GetComponent<KennaTalk>().clips[1];
                 GameObject.Find("kenna").gameObject.GetComponent<AudioSource>().Play();
 
                 StartCoroutine(guiTime());
-
             }
         }
-    }
 
-    void OnGUI()
+        void OnGUI()
     {
         if (triggered && activeGui)
         {

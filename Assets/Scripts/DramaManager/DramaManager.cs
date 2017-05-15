@@ -102,14 +102,14 @@ namespace Midgaard
                 StartCoroutine(CountDown(timedEvents[0],10));
             }
 
-            if (currentStorySegment + 1 < storySegments.Length)
+            /*if (currentStorySegment + 1 < storySegments.Length)
             {
                 currentStorySegment++;
                 //If there are more story segments left, set the next current story segment.'
                 CSS = currentStorySegment;
                 
                 SubscribeToEvents();
-            }
+            }*/
            
 
 
@@ -168,12 +168,15 @@ namespace Midgaard
 
 
         private void SubscribeToEvents()
-        {                   
-            for (int i = 0; i < storySegments[currentStorySegment].interacts.Length; i++)
-            {               
-                storySegments[currentStorySegment].interacts[i].interactObject.onInteracted += On_Interact_Finished; //Adds listeners to every minor event as to when we're done interacting with them.
-            }      
+        {
+            for (int j = 0; j < storySegments.Length; j++)
+            {
+                for (int i = 0; i < storySegments[j].interacts.Length; i++)
+                {
+                    storySegments[j].interacts[i].interactObject.onInteracted += On_Interact_Finished; //Adds listeners to every minor event as to when we're done interacting with them.
+                }
 
+            }
         }
 
         private void SubscribeTimedEvents()
